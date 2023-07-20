@@ -19,8 +19,8 @@ class User(AbstractUser):  # Создание класса Пользовате�
 class HandWriting(models.Model):  # Создание класса Подписи и наследуемся от models.Model
     # Объявление полей в таблице
     symbol = models.CharField(max_length=255, verbose_name="Символ")
-    performance = models.CharField(max_length=255, verbose_name="16 представление")
-    binary = models.CharField(max_length=255, verbose_name="Бинарное представление")
+    performance = models.TextField(verbose_name="16 представление")
+    binary = models.TextField(verbose_name="Бинарное представление")
     user = models.ForeignKey("User", on_delete=models.CASCADE, verbose_name="Пользователь")
 
     def __str__(self):
