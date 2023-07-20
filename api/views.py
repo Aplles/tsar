@@ -15,9 +15,7 @@ from .models import BinaryDict, HandWriting
 class MainPageView(View):
 
     def get(self, request, *args, **kwargs):
-        return render(request, "index.html", context={
-            "symbols": BinaryDict.objects.all()
-        })
+        return render(request, "index.html")
 
 
 def logout_user(request):
