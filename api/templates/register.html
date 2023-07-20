@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Регистрация{% endblock %}
+
+
+{% block content %}
+    <div class="block-login-user">
+        <h3 class="text-auth">Регистрация</h3>
+        <div class="block-form-login">
+            <form action="#" method="post">
+                {% csrf_token %}
+                {% for f in form %}
+                    <label for="{{ f.id_for_label }}" class="label-reg">{{ f.label }}</label>
+                    <br>{{ f }}
+                    <p>{{ f.errors }}</p>
+                {% endfor %}
+
+                <button type="submit" class="btn-reg">Зарегестрироваться</button>
+            </form>
+
+            <div class="block-with-text-reg-acc">
+                <p class="text-create-acc">Если уже есть аккаунт, ты можешь авторизоваться</p>
+                <a href="{% url "login" %}" class="small-text">
+                    <small>Авторизоваться</small>
+                </a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

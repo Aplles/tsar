@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Главная страница{% endblock %}
+{% load static %}
+
+{% block content %}
+    <div>
+        <a class="login" href="{% url 'login' %}">Войти</a>
+    </div>
+    <div>
+        <a class="login" href="{% url 'vote' %}">Голосование</a>
+    </div>
+
+    <div class="main-content">
+        <h3 class="text">Введите букву.</h3>
+        <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+            <input class="number-input" type="text" name="symbol" placeholder="Буква..."><br>
+            <button class="number-button" type="submit">Отправить</button>
+        </form>
+    </div>
+{% endblock %}

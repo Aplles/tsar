@@ -1,0 +1,46 @@
+body {
+    background-color: black;
+}
+
+.main-content {
+    width: 700px;
+    margin: 0 auto;
+}
+
+.text {
+    color: blue;
+    font-size: 100px;
+}
+
+.number-input {
+    width: 642px;
+    height: 60px;
+    font-size: 20px;
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+
+.number-button {
+    height: 64px;
+    width: 650px;
+}
+
+.login {
+    color: blue;
+    font-size: 55px;
+}
+
+.label-auth, .label-reg {
+    color: white;
+}
+
+.block-login-user {
+    width: 400px;
+    background-color: #3f3f3f;
+    margin: 60px auto 0;
+    padding: 30px;
+}
+
+.main-block-vote {
+    color: white;
+}

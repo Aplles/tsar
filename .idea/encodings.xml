@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/api/migrations/0003_auto_20230718_2002.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api/migrations/0004_auto_20230718_2011.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api/migrations/0004_auto_20230718_2020.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api/migrations/0004_auto_20230718_2023.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api/migrations/0004_auto_20230718_2027.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api/migrations/0004_auto_20230718_2037.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api/migrations/0004_auto_20230718_2038.py" charset="UTF-8" />
+  </component>
+</project>
