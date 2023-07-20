@@ -25,6 +25,7 @@ def collect_binary(apps, schema_editor):
         "%", "^", "&", "*", "(", ")", "-", "_", "+", "=", "{", "}", "[", "]", "|", "", ":", ";", "'", "\"", "<", ">",
         ".", ",", "?", "/", "~", " "
     ]
+
     list_binary = []
     random.seed(time.time())
     for symbol in list_symbol:
