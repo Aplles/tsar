@@ -16,22 +16,5 @@
                 <img src="http://tsarstvie.ru/wp-content/uploads/2023/05/zemnoy_shar.png" width="500px"/>
             </p>
         </div>
-        <div class="second-block">
-            <h3 class="text">Введите букву.</h3>
-            <form action="{% url 'index' %}" method="post">
-                {% csrf_token %}
-                <input class="number-input" type="text" name="symbol" placeholder="Буква..."><br>
-                <button class="number-button" type="submit">Отправить</button>
-                <p>{{ error }}</p>
-            </form>
-        </div>
-        <div>
-            <h3>Вам нужно заполнить следующие символы: </h3>
-            <div>
-                {% for symbol in symbols %}
-                    "{{ symbol.symbol }}",
-                {% endfor %}
-            </div>
-        </div>
     </div>
 {% endblock %}
