@@ -8,5 +8,6 @@
     <file url="file://$PROJECT_DIR$/api/migrations/0004_auto_20230718_2027.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api/migrations/0004_auto_20230718_2037.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api/migrations/0004_auto_20230718_2038.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api/views.py" charset="UTF-8" />
   </component>
 </project>

@@ -28,9 +28,9 @@ def collect_binary(apps, schema_editor):
     list_binary = []
     random.seed(time.time())
     for symbol in list_symbol:
-        binary = "".join([random.choice(["0", "1", "1", "0"]) for i in range(8)])
+        binary = "".join([random.choice(["0", "1", "1", "0"]) for i in range(12)])
         while not check_binary(binary) or binary in list_binary:
-            binary = "".join([random.choice(["0", "1", "1", "0"]) for i in range(8)])
+            binary = "".join([random.choice(["0", "1", "1", "0"]) for i in range(12)])
         list_binary.append(binary)
         BinaryDict.objects.create(
             symbol=symbol,
