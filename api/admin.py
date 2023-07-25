@@ -18,9 +18,14 @@ class BinaryDictAdmin(admin.ModelAdmin):
     pass
 
 
+class AnswerInline(admin.TabularInline):
+    model = Answer
+    extra = 1
+
+
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    pass
+    inlines = [AnswerInline, ]
 
 
 @admin.register(Answer)
