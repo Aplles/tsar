@@ -1,7 +1,13 @@
+import csv
 import random
+import smtplib
+from email.mime.text import MIMEText
+from email.header import Header
 
+import openpyxl
 from django.contrib.auth import logout, login
 from django.contrib.auth.views import LoginView
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -11,7 +17,6 @@ from .forms import RegisterUserForm, LoginUserForm
 from .models import BinaryDict, HandWriting
 
 
-# Create your views here.
 class MainPageView(View):
 
     def get(self, request, *args, **kwargs):
@@ -76,3 +81,38 @@ class VoteListCreateView(View):
 
     def get(self, request, *args, **kwargs):
         return render(request, "vote.html")
+
+
+class EmailSendView(View):
+
+    def post(self, request, *args, **kwargs):
+        mailsender = smtplib.SMTP('smtp.gmail.com', 587)
+        mailsender.starttls()
+        mailsender.login('imperiya66isa@gmail.com', 'hzrnhucrocxevivl')
+        mail_recipient = 'david26121980@gmail.com'
+        mail_subject = 'Тема сообщения'
+        mail_body = 'Текст сообщения'
+        msg = MIMEText(mail_body, 'plain', 'utf-8')
+        msg['Subject'] = Header(mail_subject, 'utf-8')
+        mailsender.sendmail('imperiya66isa@gmail.com', mail_recipient, msg.as_string())
+        mailsender.quit()
+        return redirect("index")
+
+
+class UploadSymbolView(View):
+
+    def post(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename="hand_writing.xlsx"'
+        workbook = openpyxl.Workbook()
+        worksheet = workbook.active
+        worksheet.title = 'Hand Writing Data'
+        headers = ['Символ', 'Шестнадцатеричное', 'Бинарь']
+        worksheet.append(headers)
+        hand_writing = HandWriting.objects.filter(user=request.user)
+        for symbol in hand_writing:
+            data_row = [symbol.symbol, symbol.performance, symbol.binary]
+            worksheet.append(data_row)
+
+        workbook.save(response)
+        return response
