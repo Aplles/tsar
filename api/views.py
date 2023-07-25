@@ -36,7 +36,7 @@ class UserRegisterView(CreateView):
 
     LINE_SYMBOL = '1234567890-=qwertyuiop[]asdfghjkl;zxcvbnm,./~!@#$%^&*()_+QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>?'
     LIST_REQUIRED_SYMBOLS = ["", "'", "-", " ", "!", "\"", "#", "$", "%", "&", "(", ")", "*", ",", ".", "/", ":", ";",
-                             "?", "@", "[", "]", "^", "_", "{", "|", "}", "~", "+", "<", "=", ">", "0", "1", "2", "3",
+                             "?", "@", "[", "]", "^", "_", "{", "|", "}", "~", "+", "<", ">", "0", "1", "2", "3",
                              "4", "5", "6", "7", "8", "9", "a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F",
                              "g", "G", "h", "H", "i", "I", "j", "J", "k", "K", "l", "L", "m", "M", "n", "N", "o", "O",
                              "p", "P", "q", "Q", "r", "R", "s", "S", "t", "T", "u", "U", "v", "V", "w", "W", "x", "X",
@@ -55,11 +55,11 @@ class UserRegisterView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        binary = ""
-        performance = self.random_hex()
-        for symbol_performance in performance:
-            binary += BinaryDict.objects.get(symbol=symbol_performance).binary
         for symbol in self.LIST_REQUIRED_SYMBOLS:
+            binary = ""
+            performance = self.random_hex()
+            for symbol_performance in performance:
+                binary += BinaryDict.objects.get(symbol=symbol_performance).binary
             HandWriting.objects.create(
                 symbol=symbol,
                 performance=performance,
