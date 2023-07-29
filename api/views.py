@@ -160,8 +160,8 @@ class TextUploadView(View):
         headers = ['Символ', 'Шестнадцатеричное', 'Бинарь']
         worksheet.append(headers)
         text = Text.objects.get(id=request.POST['text_id']).text
-        performance = [self._hand_writings[symbol][0] for symbol in text]
-        binary = [self._hand_writings[symbol][1] for symbol in text]
+        performance = "".join([self._hand_writings[symbol][0] for symbol in text])
+        binary = "".join([self._hand_writings[symbol][1] for symbol in text])
         worksheet.append([text, performance, binary])
         workbook.save(response)
         return response
