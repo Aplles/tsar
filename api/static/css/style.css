@@ -1,7 +1,6 @@
 body {
     background-color: black;
     color: white;
-    margin: 0 200px;
 }
 
 .main-content {
@@ -170,4 +169,28 @@ a {
 .attention {
     width: 600px;
     margin: 70px auto 0 auto;
+}
+
+.main-profile {
+    margin: 70px 200px;
+}
+
+.container-texts {
+    display: flex;
+    align-items: start;
+    word-break: break-all;
+    flex-flow: row wrap;
+    border-top: 2px solid grey;
+    padding-top: 30px;
+}
+
+.block-text {
+    border: 2px solid grey;
+    max-width: 1000px;
+    min-width: 200px;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 15px;
+    margin-right: 20px;
+    margin-bottom: 30px;
 }

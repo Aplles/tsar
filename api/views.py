@@ -3,6 +3,7 @@ import random
 import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
+from functools import lru_cache
 
 import openpyxl
 from django.contrib.auth import logout, login
@@ -138,3 +139,40 @@ class TextCreateView(View):
             user=request.user
         )
         return redirect('index')
+
+
+class UserProfileView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'profile.html', context={
+            'texts': Text.objects.filter(user=request.user)
+        })
+
+
+class TextUploadView(View):
+
+    def post(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename="hand_writing.xlsx"'
+        workbook = openpyxl.Workbook()
+        worksheet = workbook.active
+        worksheet.title = 'Выгрузка текста'
+        headers = ['Символ', 'Шестнадцатеричное', 'Бинарь']
+        worksheet.append(headers)
+        text = Text.objects.get(id=request.POST['text_id']).text
+        performance = [self._hand_writings[symbol][0] for symbol in text]
+        binary = [self._hand_writings[symbol][1] for symbol in text]
+        worksheet.append([text, performance, binary])
+        workbook.save(response)
+        return response
+
+    @property
+    @lru_cache
+    def _hand_writings(self):
+        hand_writings = HandWriting.objects.filter(
+            user=self.request.user
+        )
+        return {
+            hand_writing.symbol: [hand_writing.performance, hand_writing.binary]
+            for hand_writing in hand_writings
+        }

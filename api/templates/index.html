@@ -18,27 +18,7 @@
 
 {% block content %}
 
-    <div class="header-site">
-        <div>
-            <a class="login" href="{% url 'index' %}">Главная страница</a>
-        </div>
-        {% if request.user.is_authenticated %}
-            <div>
-                <a class="login" href="{% url 'vote' %}">Голосование</a>
-            </div>
-        {% endif %}
-        <div>
-            {% if request.user.is_authenticated %}
-                <div>
-                    <a class="login" href="{% url 'logout' %}">Выйти</a>
-                </div>
-            {% else %}
-                <div>
-                    <a class="login" href="{% url 'login' %}">Войти</a>
-                </div>
-            {% endif %}
-        </div>
-    </div>
+
 
     <div class="main-content">
         <div>
