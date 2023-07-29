@@ -7,7 +7,8 @@ from api.views import (
     logout_user,
     VoteListCreateView,
     EmailSendView,
-    UploadSymbolView
+    UploadSymbolView,
+    TextCreateView,
 )
 
 urlpatterns = [
@@ -19,4 +20,7 @@ urlpatterns = [
 
     path("send/", EmailSendView.as_view(), name='send'),
     path("upload_symbol/", UploadSymbolView.as_view(), name='upload_symbol'),
+
+
+    path("text/", TextCreateView.as_view(), name='index_text'),
 ]

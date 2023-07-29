@@ -76,7 +76,7 @@ class Answer(models.Model):  # 3
     is_current = models.BooleanField(default=False, verbose_name="Правильный ли ответ?")
     argument = models.TextField(null=True, blank=True, verbose_name="Аргумент")
     type_answer = models.ForeignKey("TypeAnswer", on_delete=models.CASCADE, verbose_name="Тип ответа")
-    vote = models.ForeignKey("Question", on_delete=models.CASCADE, verbose_name="вопрос")
+    vote = models.ForeignKey("Question", on_delete=models.CASCADE, verbose_name="вопрос", related_name='answers_vote')
 
     def __str__(self):
         return f"{self.text} - {self.is_current}"
@@ -85,3 +85,32 @@ class Answer(models.Model):  # 3
         db_table = 'answers'  # Название таблицы в БД
         verbose_name = 'Ответ'
         verbose_name_plural = 'Ответы'
+
+
+class UserAnswer(models.Model):
+    question = models.ForeignKey(
+        "Question",
+        on_delete=models.CASCADE,
+        verbose_name="вопрос",
+        related_name='questions_user'
+    )
+    answer = models.ForeignKey("Answer", on_delete=models.CASCADE, verbose_name="Ответ")
+    user = models.ForeignKey("User", on_delete=models.CASCADE, verbose_name="Пользователь")
+
+    def __str__(self):
+        return f"{self.question} - {self.answer} - {self.user}"
+
+    class Meta:
+        db_table = 'user_answers'  # Название таблицы в БД
+        verbose_name = 'Ответ пользователя'
+        verbose_name_plural = 'Ответы пользователя'
+
+
+class Text(models.Model):
+    text = models.TextField(verbose_name="Текст")
+    user = models.ForeignKey("User", on_delete=models.CASCADE, verbose_name="Пользователь")
+
+    class Meta:
+        db_table = 'texts'  # Название таблицы в БД
+        verbose_name = 'Текст пользователя'
+        verbose_name_plural = 'Текста пользователя'

@@ -14,7 +14,7 @@ from django.views import View
 from django.views.generic import CreateView
 
 from .forms import RegisterUserForm, LoginUserForm
-from .models import BinaryDict, HandWriting
+from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text
 
 
 class MainPageView(View):
@@ -80,7 +80,19 @@ class UserLoginView(LoginView):
 class VoteListCreateView(View):
 
     def get(self, request, *args, **kwargs):
-        return render(request, "vote.html")
+        return render(request, "vote.html", context={
+            'questions': Question.objects.filter(questions_user__answer__isnull=True)
+        })
+
+    def post(self, request, *args, **kwargs):
+        question = Question.objects.get(id=request.POST['question_id'])
+        answer = Answer.objects.get(id=request.POST['answer_id'])
+        UserAnswer.objects.create(
+            question=question,
+            answer=answer,
+            user=request.user,
+        )
+        return redirect('vote')
 
 
 class EmailSendView(View):
@@ -116,3 +128,13 @@ class UploadSymbolView(View):
 
         workbook.save(response)
         return response
+
+
+class TextCreateView(View):
+
+    def post(self, request, *args, **kwargs):
+        Text.objects.create(
+            text=request.POST['text'],
+            user=request.user
+        )
+        return redirect('index')

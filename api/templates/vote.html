@@ -3,13 +3,31 @@
 {% load static %}
 
 {% block content %}
-<div class="main-block-vote">
-    <h1>Голосование</h1>
-    <div>
-        Вопрос?
+    <a href="{% url 'index' %}">На главную</a>
+    <div class="main-block-vote">
+        <h1>Голосование</h1>
+        {% if not questions %}
+            <h2>Вопросов больше нет</h2>
+        {% else %}
+            <h2>Осталось вопросов: {{ questions.count }}</h2>
+        {% endif %}
+        {% for question in questions %}
+            <form method="post" action="{% url 'vote' %}">
+                {% csrf_token %}
+                <div class="block-question">
+                    <h3>{{ question.text }}</h3>
+                    <input type="hidden" name="question_id" value="{{ question.id }}">
+                    <div class="block-answers">
+                        {% for answer in question.answers_vote.all %}
+                            <div class="block-answer">
+                                <label for="{{ answer.id }}">{{ answer.text }}</label>
+                                <input id="{{ answer.id }}" type="submit" name="answer_id"
+                                       value="{{ answer.id }}" class="btn-answer">
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </form>
+        {% endfor %}
     </div>
-    <div>
-        <input type="text" placeholder="Ответ...">
-    </div>
-</div>
 {% endblock %}

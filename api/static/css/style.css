@@ -1,6 +1,7 @@
 body {
     background-color: black;
     color: white;
+    margin: 0 200px;
 }
 
 .main-content {
@@ -20,34 +21,6 @@ body {
     font-size: 100px;
 }
 
-.number-input {
-    width: 642px;
-    height: 60px;
-    font-size: 20px;
-    line-height: 30px;
-    margin-bottom: 10px;
-}
-
-.number-button {
-    height: 64px;
-    width: 650px;
-}
-
-.login {
-    color: blue;
-    font-size: 55px;
-}
-
-.label-auth, .label-reg {
-    color: white;
-}
-
-.block-login-user {
-    width: 400px;
-    background-color: #3f3f3f;
-    margin: 60px auto 0;
-    padding: 30px;
-}
 
 .main-block-vote {
     color: white;
@@ -59,20 +32,142 @@ img.planet {
     -webkit-animation: 160s linear 0s normal none infinite running planet;
 }
 
-@keyframes planet {
+
+.main-block-vote {
+    width: 600px;
+    margin: 100px auto 0 auto;
+    text-align: center;
+}
+
+.block-question {
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.block-answers {
+    display: flex;
+    justify-content: center;
+}
+
+.block-answer {
+    min-width: 100px;
+    background-color: unset;
+    color: white;
+    border: 1px solid grey;
+    margin: 0 20px;
+    padding: 5px 0;
+    border-radius: 7px;
+}
+
+.block-answer label {
+    padding: 5px 40%;
+}
+
+.btn-answer {
+    display: none;
+}
+
+.block-answer:hover {
+    background-color: #a4a4a4;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+    color: #6262ff !important;
+}
+
+.header-site {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid grey;
+    padding: 10px 0;
+    margin: 0 200px;
+}
+
+.header-site div a {
+    font-size: 35px;
+}
+
+.block-login-user {
+    width: 500px;
+    margin: 200px auto 0 auto;
+    text-align: center;
+    border: 2px solid grey;
+    padding: 20px 0 60px 0;
+    border-radius: 10px;
+    font-size: 26px;
+}
+
+.label-auth {
+
+}
+
+.login {
+    font-size: 20px;
+}
+
+.password {
+    font-size: 20px;
+}
+
+.block-form-login {
+    width: 250px;
+    margin: 0 auto;
+}
+
+.btn-login {
+    min-width: 100%;
+    background-color: unset;
+    color: white;
+    border: 1px solid grey;
+    padding: 8px 0;
+    border-radius: 7px;
+    height: 40px;
+    font-size: 20px;
+}
+
+.btn-login:hover {
+    background-color: #a4a4a4;
+    color: black;
+}
+
+.text-create-acc {
+    font-size: 20px;
+}
+
+.blink {
+    -webkit-animation: blink 2s linear infinite;
+    animation: blink 2s linear infinite;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+@-webkit-keyframes blink {
     0% {
-        transform: rotate(0deg);
+        color: rgb(103, 0, 0);
+    }
+    50% {
+        color: rgb(183, 14, 14);
     }
     100% {
-        transform: rotate(180deg);
+        color: rgb(128, 0, 0);
     }
 }
 
-@-webkit-keyframes planet {
+@keyframes blink {
     0% {
-        transform: rotate(0deg);
+        color: rgb(128, 0, 0);
+    }
+    50% {
+        color: rgb(183, 14, 14);
     }
     100% {
-        transform: rotate(180deg);
+        color: rgb(128, 0, 0);
     }
+}
+
+.attention {
+    width: 600px;
+    margin: 70px auto 0 auto;
 }

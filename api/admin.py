@@ -1,10 +1,15 @@
 from django.contrib import admin
 from .models import User, HandWriting, BinaryDict
-from .models import Question, Answer, TypeAnswer
+from .models import Question, Answer, TypeAnswer, UserAnswer
 
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(UserAnswer)
+class UserAnswerAdmin(admin.ModelAdmin):
     pass
 
 

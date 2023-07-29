@@ -2,33 +2,77 @@
 {% block title %}Главная страница{% endblock %}
 {% load static %}
 
+{% block style %}
+    <style>
+        body {
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
-    <div>
-        <a class="login" href="{% url 'login' %}">Войти</a>
-    </div>
-    <div>
-        <a class="login" href="{% url 'vote' %}">Голосование</a>
+
+    <div class="header-site">
+        <div>
+            <a class="login" href="{% url 'index' %}">Главная страница</a>
+        </div>
+        {% if request.user.is_authenticated %}
+            <div>
+                <a class="login" href="{% url 'vote' %}">Голосование</a>
+            </div>
+        {% endif %}
+        <div>
+            {% if request.user.is_authenticated %}
+                <div>
+                    <a class="login" href="{% url 'logout' %}">Выйти</a>
+                </div>
+            {% else %}
+                <div>
+                    <a class="login" href="{% url 'login' %}">Войти</a>
+                </div>
+            {% endif %}
+        </div>
     </div>
 
     <div class="main-content">
         <div>
             <p>
-                <img src="http://tsarstvie.ru/wp-content/uploads/2023/05/zemnoy_shar.png" width="500px"/>
+                <img src="{% static 'img/earthcloudmap.png' %}" width="500px"/>
             </p>
         </div>
-        <div class="second-block">
-            <div>
-                <h3>Введите текст</h3>
-                <textarea class="textarea-text" name="" id="" cols="90" rows="30"></textarea>
-            </div>
-        </div>
-        <div>
-            {% if request.user.is_authenticated %}
-                <form action="{% url 'upload_symbol' %}" method="post" enctype="multipart/form-data">
+        {% if request.user.is_authenticated %}
+            <div class="second-block">
+                <form action="{% url 'index_text' %}" method="post">
                     {% csrf_token %}
-                    <button type="submit">Выгрузить шрифт</button>
+                    <div>
+                        <h3>Введите текст</h3>
+                        <textarea class="textarea-text" name="text" id="" cols="90" rows="30"></textarea>
+                    </div>
+                    <div>
+                        <button>Отправить</button>
+                    </div>
                 </form>
-            {% endif %}
-        </div>
+            </div>
+            <div>
+                {% if request.user.is_authenticated %}
+                    <form action="{% url 'upload_symbol' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <button type="submit">Выгрузить шрифт</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="attention">
+                <p class="blink">Авторизируйтесь</p>
+            </div>
+        {% endif %}
     </div>
+    <script src="{% static 'js/three.min.js' %}"></script>
+    <script src="{% static 'js/my4.js' %}"></script>
 {% endblock %}
