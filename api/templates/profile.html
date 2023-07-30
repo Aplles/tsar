@@ -48,7 +48,7 @@
         <div class="container-texts">
             {% for text in texts %}
                 <div class="block-text">
-                    <pre>{{ text.text }}</pre>
+                    <pre >{{ text.text }}</pre>
                     <div class="block-link-upload">
                         <div>
                             <form action="{% url 'upload_text' text.id %}" method="post">

@@ -201,6 +201,17 @@ a {
     margin-bottom: 30px;
 }
 
+pre {
+     white-space: pre-wrap;
+     white-space: -moz-pre-wrap;
+     white-space: -pre-wrap;
+     white-space: -o-pre-wrap;
+     word-wrap: break-word;
+}
+
+.block-text pre{
+}
+
 .politic {
     font-size: 20px;
 }
