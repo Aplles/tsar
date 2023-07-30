@@ -11,6 +11,7 @@ from api.views import (
     TextCreateView,
     UserProfileView,
     TextUploadView,
+    TextDeleteView,
 )
 
 urlpatterns = [
@@ -25,6 +26,7 @@ urlpatterns = [
 
 
     path("text/", TextCreateView.as_view(), name='index_text'),
-    path("text/upload", TextUploadView.as_view(), name='upload_text'),
+    path("text/<int:id>/upload", TextUploadView.as_view(), name='upload_text'),
+    path("text/<int:id>/delete", TextDeleteView.as_view(), name='delete_text'),
     path("profile/", UserProfileView.as_view(), name='profile'),
 ]

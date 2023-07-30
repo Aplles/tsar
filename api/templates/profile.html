@@ -10,18 +10,68 @@
         </div>
 
         <div>
+            {% if request.user.is_authenticated %}
+                <form action="{% url 'upload_symbol' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-upload">Выгрузить свой шрифт</button>
+                </form>
+            {% endif %}
+        </div>
+
+        <div class="main-content">
+            {% if request.user.is_authenticated %}
+                <div class="second-block">
+                    <form action="{% url 'index_text' %}" method="post">
+                        {% csrf_token %}
+                        <div>
+                            <h3>Введите текст</h3>
+                            <textarea class="textarea-text" name="text" id="" cols="90" rows="30"></textarea>
+                        </div>
+                        <div>
+                            <button>Отправить</button>
+                        </div>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+
+        <div>
             <h3>Ваши текста:</h3>
         </div>
         <div class="container-texts">
             {% for text in texts %}
-                <form action="{% url 'upload_text' %}" method="post">
-                    {% csrf_token %}
-                    <div class="block-text">
-                        <p>{{ text.text }}</p>
-                        <input type="hidden" name="text_id" value="{{ text.id }}">
-                        <button type="submit">выгрузить</button>
+                <div class="block-text">
+                    <pre>{{ text.text }}</pre>
+                    <div class="block-link-upload">
+                        <div>
+                            <form action="{% url 'upload_text' text.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-upload">Выгрузить</button>
+                            </form>
+                        </div>
+
+                        <div>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-upload">HASH</button>
+                            </form>
+                        </div>
+
+                        <div>
+                            <form action="{% url 'delete_text' text.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-upload">Удалить</button>
+                            </form>
+                        </div>
+
+                        <div>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-upload">7 колонка</button>
+                            </form>
+                        </div>
                     </div>
-                </form>
+                </div>
             {% endfor %}
         </div>
     </div>

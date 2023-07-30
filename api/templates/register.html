@@ -19,9 +19,19 @@
 
             <div class="block-with-text-reg-acc">
                 <p class="text-create-acc">Если уже есть аккаунт, ты можешь авторизоваться</p>
-                <a href="{% url "login" %}" class="small-text">
-                    <small>Авторизоваться</small>
-                </a>
+                <div>
+                    <a href="{% url "login" %}" class="small-text">
+                        <small>Авторизоваться</small>
+                    </a>
+                </div>
+                <div>
+                    <label for="politic">
+                        <input type="checkbox" id="politic" value="Политика конфиденциальности">
+                        <a href="#" class="small-text politic">
+                            <small>Политика конфиденциальности</small>
+                        </a>
+                    </label>
+                </div>
             </div>
         </div>
 

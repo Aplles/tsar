@@ -111,7 +111,7 @@ a {
 }
 
 .block-form-login {
-    width: 250px;
+    width: 300px;
     margin: 0 auto;
 }
 
@@ -168,7 +168,8 @@ a {
 
 .attention {
     width: 600px;
-    margin: 70px auto 0 auto;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .main-profile {
@@ -193,4 +194,27 @@ a {
     padding: 15px;
     margin-right: 20px;
     margin-bottom: 30px;
+}
+
+.politic {
+    font-size: 20px;
+}
+
+.block-link-upload div {
+    display: inline-block;
+}
+
+.btn-upload {
+    margin-right: 5px;
+    background-color: unset;
+    color: white;
+    border: 1px solid grey;
+    border-radius: 7px;
+    padding: 3px 10px;
+}
+
+
+.btn-upload:hover {
+    background-color: #a4a4a4;
+    color: black;
 }

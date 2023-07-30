@@ -21,7 +21,9 @@ from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text
 class MainPageView(View):
 
     def get(self, request, *args, **kwargs):
-        return render(request, "index.html")
+        return render(request, "index.html", context={
+            'index': True
+        })
 
 
 def logout_user(request):
@@ -67,7 +69,7 @@ class UserRegisterView(CreateView):
                 binary=binary,
                 user=user
             )
-        return redirect('index')
+        return redirect('profile')
 
 
 class UserLoginView(LoginView):
@@ -75,7 +77,7 @@ class UserLoginView(LoginView):
     template_name = 'login.html'
 
     def get_success_url(self):
-        return reverse_lazy('index')
+        return reverse_lazy('profile')
 
 
 class VoteListCreateView(View):
@@ -138,7 +140,7 @@ class TextCreateView(View):
             text=request.POST['text'],
             user=request.user
         )
-        return redirect('index')
+        return redirect('profile')
 
 
 class UserProfileView(View):
@@ -159,7 +161,7 @@ class TextUploadView(View):
         worksheet.title = 'Выгрузка текста'
         headers = ['Символ', 'Шестнадцатеричное', 'Бинарь']
         worksheet.append(headers)
-        text = Text.objects.get(id=request.POST['text_id']).text
+        text = Text.objects.get(id=kwargs['id']).text
         performance = "".join([self._hand_writings[symbol][0] for symbol in text])
         binary = "".join([self._hand_writings[symbol][1] for symbol in text])
         worksheet.append([text, performance, binary])
@@ -176,3 +178,13 @@ class TextUploadView(View):
             hand_writing.symbol: [hand_writing.performance, hand_writing.binary]
             for hand_writing in hand_writings
         }
+
+
+class TextDeleteView(View):
+
+    def post(self, request, *args, **kwargs):
+        Text.objects.get(
+            id=kwargs['id'],
+            user=request.user
+        ).delete()
+        return redirect('profile')

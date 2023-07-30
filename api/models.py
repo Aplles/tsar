@@ -47,7 +47,7 @@ class BinaryDict(models.Model):
 
 
 class TypeAnswer(models.Model):  # 4
-    title = models.CharField(max_length=255, verbose_name="Тип вопроса")
+    title = models.CharField(max_length=255, verbose_name="Тип ответа")
 
     def __str__(self):
         return f"{self.title}"
@@ -58,8 +58,27 @@ class TypeAnswer(models.Model):  # 4
         verbose_name_plural = 'Типы ответов'
 
 
+class TypeQuestion(models.Model):
+    title = models.CharField(max_length=255, verbose_name="Тип вопроса")
+
+    def __str__(self):
+        return f"{self.title}"
+
+    class Meta:
+        db_table = 'type_questions'  # Название таблицы в БД
+        verbose_name = 'Тип вопроса'
+        verbose_name_plural = 'Типы вопроса'
+
+
 class Question(models.Model):  # 2
     text = models.CharField(max_length=255, verbose_name="Вопрос")
+    type_question = models.ForeignKey(
+        "TypeQuestion",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        verbose_name="Тип вопроса"
+    )
     user = models.ForeignKey("User", on_delete=models.CASCADE, verbose_name="Пользователь")
 
     def __str__(self):

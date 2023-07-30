@@ -17,39 +17,10 @@
 {% endblock %}
 
 {% block content %}
-
-
-
     <div class="main-content">
-        <div>
-            <p>
-                <img src="{% static 'img/earthcloudmap.png' %}" width="500px"/>
-            </p>
-        </div>
-        {% if request.user.is_authenticated %}
-            <div class="second-block">
-                <form action="{% url 'index_text' %}" method="post">
-                    {% csrf_token %}
-                    <div>
-                        <h3>Введите текст</h3>
-                        <textarea class="textarea-text" name="text" id="" cols="90" rows="30"></textarea>
-                    </div>
-                    <div>
-                        <button>Отправить</button>
-                    </div>
-                </form>
-            </div>
-            <div>
-                {% if request.user.is_authenticated %}
-                    <form action="{% url 'upload_symbol' %}" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <button type="submit">Выгрузить шрифт</button>
-                    </form>
-                {% endif %}
-            </div>
-        {% else %}
+        {% if not request.user.is_authenticated %}
             <div class="attention">
-                <p class="blink">Авторизируйтесь</p>
+                <a class="login" href="{% url 'login' %}"><p class="blink">Авторизируйтесь</p></a>
             </div>
         {% endif %}
     </div>
