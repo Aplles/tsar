@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Результаты голосования{% endblock %}
+{% load static %}
+
+{% block content %}
+    <div class="main-block-result-vote">
+        <h1>Ваши результаты на ответы</h1>
+        {% if not user_answers %}
+            <h2>Вы ещё не проходили голосования</h2>
+        {% endif %}
+        {% for user_answer in user_answers %}
+            <div class="block-user-answer">
+                <div>
+                    <h3>Вопрос: {{ user_answer.question.text }}</h3>
+                </div>
+                <div>
+                    <p class="text-user-answer">Ваш ответ: {{ user_answer.answer.text }}</p>
+                </div>
+                <div>
+                    <p class="text-user-answer">Правильный ответ: {{ user_answer.question.correct_answer.text }}</p>
+                </div>
+                <div>
+                    <p class="text-user-answer">Пояснение: {{ user_answer.question.correct_answer.argument }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

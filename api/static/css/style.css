@@ -3,6 +3,11 @@ body {
     color: white;
 }
 
+h3 {
+    margin: 0;
+    padding: 0;
+}
+
 .main-content {
     margin: 50px auto 0 auto;
     display: flex;
@@ -213,8 +218,50 @@ a {
     padding: 3px 10px;
 }
 
-
 .btn-upload:hover {
     background-color: #a4a4a4;
     color: black;
+}
+
+.block-profile {
+    margin-bottom: 20px;
+}
+
+.btn-profile {
+    margin-right: 5px;
+    background-color: unset;
+    color: white;
+    border: 1px solid grey;
+    border-radius: 7px;
+    padding: 3px 10px;
+    font-size: 18px;
+}
+
+
+.btn-profile:hover {
+    background-color: #a4a4a4;
+    color: black;
+}
+
+.main-block-result-vote {
+    margin: 100px auto 0 auto;
+    padding: 0 200px;
+}
+
+.block-user-answer {
+    border: 2px solid grey;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.text-user-answer {
+    font-size: 20px;
+}
+
+.block-zapoved {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 200px;
+    margin-bottom: 50px;
 }

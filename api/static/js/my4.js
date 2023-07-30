@@ -4,7 +4,10 @@ var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHei
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+
+document.getElementById('planet').appendChild(renderer.domElement);
+// document.body.appendChild(renderer.domElement);
+
 var RADIUS_SPHERE = 3;
 var geometry = new THREE.SphereGeometry(RADIUS_SPHERE, 100, 100)
 var material = new THREE.MeshPhongMaterial();
@@ -33,10 +36,12 @@ render();
 
 
 window.addEventListener('click', function (e) {
+
     var lat = 90 - (Math.acos(e.clientY / RADIUS_SPHERE)) * 180 / Math.PI;
     var lon = ((270 + (Math.atan2(e.clientX, camera.position.z)) * 180 / Math.PI) % 360) - 180;
     var keyob = Object.keys(sphere);
     if (document.addEventListener) {
+
         if ('onwheel' in document) {
             // IE9+, FF17+, Ch31+
             document.addEventListener("wheel", onWheel);

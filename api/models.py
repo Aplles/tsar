@@ -84,6 +84,10 @@ class Question(models.Model):  # 2
     def __str__(self):
         return f"{self.text} - {self.user.username}"
 
+    @property
+    def correct_answer(self):
+        return self.answers_vote.get(is_current=True)
+
     class Meta:
         db_table = 'questions'  # Название таблицы в БД
         verbose_name = 'Вопрос'

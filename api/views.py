@@ -188,3 +188,14 @@ class TextDeleteView(View):
             user=request.user
         ).delete()
         return redirect('profile')
+
+
+class VoteListResultView(View):
+
+    def get(self, request, *args, **kwargs):
+        user_answers = UserAnswer.objects.annotate(
+
+        ).filter(user=request.user)
+        return render(request, 'vote_result.html', context={
+            'user_answers': user_answers
+        })
