@@ -149,7 +149,7 @@ class UserProfileView(View):
 
     def get(self, request, *args, **kwargs):
         return render(request, 'profile.html', context={
-            'texts': Text.objects.filter(user=request.user)
+            'texts': Text.objects.filter(user=request.user).order_by('-created_at')
         })
 
 
