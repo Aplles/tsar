@@ -58,13 +58,9 @@ img.planet {
     background-color: unset;
     color: white;
     border: 1px solid grey;
-    margin: 0 20px;
+    margin: 10px 20px;
     padding: 5px 0;
     border-radius: 7px;
-}
-
-.block-answer label {
-    padding: 5px 40%;
 }
 
 .btn-answer {

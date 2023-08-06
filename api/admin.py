@@ -15,12 +15,12 @@ class BalanceAdmin(admin.ModelAdmin):
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
-    pass
+    list_filter = ('user',)
 
 
 @admin.register(Text)
 class TextAdmin(admin.ModelAdmin):
-    pass
+    list_filter = ('user',)
 
 
 class AnswerCurrentFilter(admin.SimpleListFilter):
