@@ -258,3 +258,18 @@ class UserFinanceView(View):
         return render(request, 'finance.html', context={
             'balance': Balance.objects.get(user=request.user).balance
         })
+
+
+class UserKeyView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'keys.html', context={
+
+        })
+
+
+class EmailSentShowView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'list_sent_user.html', context={
+            'sent_messages': Message.objects.filter(author=request.user)
+        })

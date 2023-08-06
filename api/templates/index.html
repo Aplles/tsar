@@ -22,6 +22,10 @@
             <div class="attention">
                 <a class="login" href="{% url 'login' %}"><p class="blink">Войти в матрицу</p></a>
             </div>
+        {% else %}
+            <div class="attention">
+                <a class="login" href="{% url 'profile' %}"><p class="blink">На сайт</p></a>
+            </div>
         {% endif %}
     </div>
     <div id="planet"></div>

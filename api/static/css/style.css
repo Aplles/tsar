@@ -152,7 +152,7 @@ a {
         color: rgb(0, 21, 103);
     }
     50% {
-        color: rgb(14, 48, 183);
+        color: rgb(0, 38, 147);
     }
     100% {
         color: rgb(0, 26, 128);
@@ -164,7 +164,7 @@ a {
         color: rgb(0, 30, 128);
     }
     50% {
-        color: rgb(14, 42, 183);
+        color: rgb(0, 27, 155);
     }
     100% {
         color: rgb(0, 11, 128);
@@ -330,4 +330,10 @@ pre {
 
 .block-column {
     margin-top: 50px;
+}
+
+.show-sent-message {
+    border-top: 2px solid grey;
+    padding-top: 20px;
+    margin-top: 20px;
 }

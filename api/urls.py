@@ -16,6 +16,8 @@ from api.views import (
     EmailShowView,
     MessageUploadView,
     UserFinanceView,
+    UserKeyView,
+    EmailSentShowView,
 )
 
 urlpatterns = [
@@ -28,6 +30,7 @@ urlpatterns = [
 
     path("send/", EmailSendView.as_view(), name='send'),
     path("mail/", EmailShowView.as_view(), name='email'),
+    path("mail/sent_by_user/", EmailSentShowView.as_view(), name='user_mails'),
     path("mail/<int:id>/upload", MessageUploadView.as_view(), name='upload_message'),
     path("upload_symbol/", UploadSymbolView.as_view(), name='upload_symbol'),
 
@@ -37,4 +40,5 @@ urlpatterns = [
     path("text/<int:id>/delete", TextDeleteView.as_view(), name='delete_text'),
     path("profile/", UserProfileView.as_view(), name='profile'),
     path("profile/finance", UserFinanceView.as_view(), name='finance'),
+    path("profile/keys", UserKeyView.as_view(), name='keys'),
 ]
