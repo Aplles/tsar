@@ -20,7 +20,7 @@
     <div class="main-content">
         {% if not request.user.is_authenticated %}
             <div class="attention">
-                <a class="login" href="{% url 'login' %}"><p class="blink">Авторизируйтесь</p></a>
+                <a class="login" href="{% url 'login' %}"><p class="blink">Войти в матрицу</p></a>
             </div>
         {% endif %}
     </div>
@@ -56,8 +56,41 @@
         <div>
             <p>Заповедь 10</p>
         </div>
-
     </div>
+
+    <div class="block-zapoved">
+        <div>
+            <p>Вердикт 1</p>
+        </div>
+        <div>
+            <p>Вердикт 2</p>
+        </div>
+        <div>
+            <p>Вердикт 3</p>
+        </div>
+        <div>
+            <p>Вердикт 4</p>
+        </div>
+        <div>
+            <p>Вердикт 5</p>
+        </div>
+        <div>
+            <p>Вердикт 6</p>
+        </div>
+        <div>
+            <p>Вердикт 7</p>
+        </div>
+        <div>
+            <p>Вердикт 8</p>
+        </div>
+        <div>
+            <p>Вердикт 9</p>
+        </div>
+        <div>
+            <p>Вердикт 10</p>
+        </div>
+    </div>
+
     <script src="{% static 'js/three.min.js' %}"></script>
     <script src="{% static 'js/my4.js' %}"></script>
 {% endblock %}

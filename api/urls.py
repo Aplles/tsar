@@ -13,6 +13,7 @@ from api.views import (
     TextUploadView,
     TextDeleteView,
     VoteListResultView,
+    EmailShowView,
 )
 
 urlpatterns = [
@@ -24,6 +25,7 @@ urlpatterns = [
     path('user/logout/', logout_user, name="logout"),
 
     path("send/", EmailSendView.as_view(), name='send'),
+    path("mail/", EmailShowView.as_view(), name='email'),
     path("upload_symbol/", UploadSymbolView.as_view(), name='upload_symbol'),
 
 

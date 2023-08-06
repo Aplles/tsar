@@ -108,7 +108,7 @@ a {
 }
 
 .login {
-    font-size: 20px;
+    font-size: 26px;
 }
 
 .password {
@@ -143,36 +143,37 @@ a {
 .blink {
     -webkit-animation: blink 2s linear infinite;
     animation: blink 2s linear infinite;
-    font-size: 50px;
+    font-size: 56px;
     font-weight: bold;
 }
 
 @-webkit-keyframes blink {
     0% {
-        color: rgb(103, 0, 0);
+        color: rgb(0, 21, 103);
     }
     50% {
-        color: rgb(183, 14, 14);
+        color: rgb(14, 48, 183);
     }
     100% {
-        color: rgb(128, 0, 0);
+        color: rgb(0, 26, 128);
     }
 }
 
 @keyframes blink {
     0% {
-        color: rgb(128, 0, 0);
+        color: rgb(0, 30, 128);
     }
     50% {
-        color: rgb(183, 14, 14);
+        color: rgb(14, 42, 183);
     }
     100% {
-        color: rgb(128, 0, 0);
+        color: rgb(0, 11, 128);
     }
 }
 
 .attention {
     width: 600px;
+    height: 120px;
     text-align: center;
     margin: 0 auto;
 }
@@ -275,4 +276,18 @@ pre {
     justify-content: space-between;
     padding: 0 200px;
     margin-bottom: 50px;
+}
+
+.send-mail {
+    padding: 0 200px;
+    margin-top: 40px;
+}
+
+.list-message {
+    padding: 0 200px;
+    margin-top: 40px;
+}
+
+.block-btn {
+    margin-top: 20px;
 }

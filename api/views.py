@@ -8,6 +8,7 @@ from functools import lru_cache
 import openpyxl
 from django.contrib.auth import logout, login
 from django.contrib.auth.views import LoginView
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -15,7 +16,7 @@ from django.views import View
 from django.views.generic import CreateView
 
 from .forms import RegisterUserForm, LoginUserForm
-from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text
+from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text, User, Message
 
 
 class MainPageView(View):
@@ -199,3 +200,23 @@ class VoteListResultView(View):
         return render(request, 'vote_result.html', context={
             'user_answers': user_answers
         })
+
+
+class EmailShowView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'mail.html', context={
+            'users': User.objects.filter(~Q(id=request.user.id)),
+            'messages': Message.objects.filter(user=request.user)
+        })
+
+    def post(self, request, *args, **kwargs):
+        text = request.POST.get("text_message")
+        if not text:
+            return redirect('email')
+        Message.objects.create(
+            text=text,
+            user=User.objects.get(id=request.POST['user_id']),
+            author=request.user
+        )
+        return redirect('email')

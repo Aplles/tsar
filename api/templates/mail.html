@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Почта{% endblock %}
+
+
+{% block content %}
+    <div class="send-mail">
+        <form action="{% url 'email' %}" method="post">
+            {% csrf_token %}
+            <div>
+                <textarea name="text_message" id="" cols="50" rows="10"></textarea>
+            </div>
+            <div>
+                <select name="user_id">
+                    {% for user in users %}
+                        <option value="{{ user.id }}">{{ user.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="block-btn">
+                <button class="btn-upload" type="submit">Отправить сообщение</button>
+            </div>
+        </form>
+    </div>
+    <div class="list-message">
+        <div>
+            <h3>Ваши сообщения</h3>
+        </div>
+        <div class="container-texts">
+            {% for message in messages %}
+                <div class="block-text">
+                    <pre >{{ message.text }}</pre>
+                    <div class="block-link-upload">
+                        <div>
+                            <form action="{% url 'upload_text' message.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-upload">Выгрузить</button>
+                            </form>
+                        </div>
+
+                        <div>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-upload">HASH</button>
+                            </form>
+                        </div>
+
+                        <div>
+                            <form action="{% url 'delete_text' message.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-upload">Удалить</button>
+                            </form>
+                        </div>
+
+                        <div>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-upload">7 колонка</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
