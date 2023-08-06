@@ -220,3 +220,32 @@ class EmailShowView(View):
             author=request.user
         )
         return redirect('email')
+
+
+class MessageUploadView(View):
+
+    def post(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename="message.xlsx"'
+        workbook = openpyxl.Workbook()
+        worksheet = workbook.active
+        worksheet.title = 'Выгрузка сообщения'
+        headers = ['Символ', 'Шестнадцатеричное', 'Бинарь']
+        worksheet.append(headers)
+        message = Message.objects.get(id=kwargs['id']).text
+        performance = "".join([self._hand_writings[symbol][0] for symbol in message])
+        binary = "".join([self._hand_writings[symbol][1] for symbol in message])
+        worksheet.append([message, performance, binary])
+        workbook.save(response)
+        return response
+
+    @property
+    @lru_cache
+    def _hand_writings(self):
+        hand_writings = HandWriting.objects.filter(
+            user=self.request.user
+        )
+        return {
+            hand_writing.symbol: [hand_writing.performance, hand_writing.binary]
+            for hand_writing in hand_writings
+        }

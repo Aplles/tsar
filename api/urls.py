@@ -14,6 +14,7 @@ from api.views import (
     TextDeleteView,
     VoteListResultView,
     EmailShowView,
+    MessageUploadView,
 )
 
 urlpatterns = [
@@ -26,6 +27,7 @@ urlpatterns = [
 
     path("send/", EmailSendView.as_view(), name='send'),
     path("mail/", EmailShowView.as_view(), name='email'),
+    path("mail/<int:id>/upload", MessageUploadView.as_view(), name='upload_message'),
     path("upload_symbol/", UploadSymbolView.as_view(), name='upload_symbol'),
 
 

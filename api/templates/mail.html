@@ -28,10 +28,13 @@
         <div class="container-texts">
             {% for message in messages %}
                 <div class="block-text">
+                    <div>
+                        <h3>Сообщение от {{ message.author.username }}</h3>
+                    </div>
                     <pre >{{ message.text }}</pre>
                     <div class="block-link-upload">
                         <div>
-                            <form action="{% url 'upload_text' message.id %}" method="post">
+                            <form action="{% url 'upload_message' message.id %}" method="post">
                                 {% csrf_token %}
                                 <button type="submit" class="btn-upload">Выгрузить</button>
                             </form>
