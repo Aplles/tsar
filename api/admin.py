@@ -50,7 +50,7 @@ class UserAnswerAdmin(admin.ModelAdmin):
 
 @admin.register(HandWriting)
 class HandWritingAdmin(admin.ModelAdmin):
-    pass
+    list_filter = ('user',)
 
 
 @admin.register(BinaryDict)

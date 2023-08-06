@@ -14,9 +14,9 @@ h3 {
 }
 
 .second-block {
-    margin-left: 400px;
     color: white;
     text-align: center;
+    margin: 0 auto;
 }
 
 
@@ -308,6 +308,7 @@ pre {
     background-color: #003fff;
     margin-right: 5px;
     overflow: hidden;
+    margin-bottom: 5px;
 }
 
 .column:before {
@@ -336,4 +337,13 @@ pre {
     border-top: 2px solid grey;
     padding-top: 20px;
     margin-top: 20px;
+}
+
+.block-with-compil {
+    display: flex;
+    justify-content: space-between;
+}
+
+.block-with-compil div {
+    margin: 20px 5px 0;
 }

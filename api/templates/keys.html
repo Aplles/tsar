@@ -3,6 +3,21 @@
 
 
 {% block content %}
+    <script>
+        function copyToClipboard() {
+            const str = '148cbf7ee14dcf39a16982c62afedc8783297b8b28194bec4634acc20b035642';
+            const el = document.createElement('textarea');
+            el.value = str;
+            el.setAttribute('readonly', '');
+            el.style.position = 'absolute';
+            el.style.left = '-9999px';
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+        }
+    </script>
+
     <div class="main-block-finance">
         <div>
             <h1>Ваши ключи</h1>
@@ -11,7 +26,7 @@
         <div class="block-column">
             <div class="row">
                 <div class="column">
-                    <button class="btn-balance">Ключ 1</button>
+                    <button id="copyText" class="btn-balance" onclick="copyToClipboard()">Ключ 1</button>
                 </div>
                 <div class="column">
                     <button class="btn-balance">Ключ 2</button>

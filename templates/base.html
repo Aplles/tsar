@@ -20,7 +20,10 @@
     <div class="header-site">
         {% if request.user.is_authenticated %}
             <div>
-                <a class="login" href="{% url 'vote' %}">Голосование</a>
+                <a class="login" href="{% url 'studying' %}">Учеба</a>
+            </div>
+            <div>
+                <a class="login" href="{% url 'work' %}">Работа</a>
             </div>
             <div>
                 <a class="login" href="{% url 'profile' %}">Профиль</a>

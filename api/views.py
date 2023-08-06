@@ -273,3 +273,17 @@ class EmailSentShowView(View):
         return render(request, 'list_sent_user.html', context={
             'sent_messages': Message.objects.filter(author=request.user)
         })
+
+
+class StudyingShowView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'studying.html', context={
+        })
+
+
+class WorkShowView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'work.html', context={
+        })
