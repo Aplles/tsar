@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Финансы{% endblock %}
+
+
+{% block content %}
+    <div class="main-block-finance">
+        <div>
+            <h1>Ваши финансы</h1>
+        </div>
+        <div>
+            <h3>Текущий баланс: {{ balance }} руб.</h3>
+        </div>
+
+        <div class="block-column">
+            <div class="row">
+                <div class="column">
+                    <button class="btn-balance">Вывод средств</button>
+                </div>
+                <div class="column">
+                    <button class="btn-balance">Пополнить баланс</button>
+                </div>
+                <div class="column">
+                    <button class="btn-balance">Отправить деньги</button>
+                </div>
+                <div class="column">
+                    <button class="btn-balance">История</button>
+                </div>
+                <div class="column">
+                    <button class="btn-balance">Переписка</button>
+                </div>
+                <div class="column">
+                    <button class="btn-balance">7 колонка</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

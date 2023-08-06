@@ -16,7 +16,7 @@ from django.views import View
 from django.views.generic import CreateView
 
 from .forms import RegisterUserForm, LoginUserForm
-from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text, User, Message
+from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text, User, Message, Balance
 
 
 class MainPageView(View):
@@ -70,6 +70,7 @@ class UserRegisterView(CreateView):
                 binary=binary,
                 user=user
             )
+        Balance.objects.create(user=user)
         return redirect('profile')
 
 
@@ -249,3 +250,11 @@ class MessageUploadView(View):
             hand_writing.symbol: [hand_writing.performance, hand_writing.binary]
             for hand_writing in hand_writings
         }
+
+
+class UserFinanceView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'finance.html', context={
+            'balance': Balance.objects.get(user=request.user).balance
+        })

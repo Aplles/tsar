@@ -15,6 +15,7 @@ from api.views import (
     VoteListResultView,
     EmailShowView,
     MessageUploadView,
+    UserFinanceView,
 )
 
 urlpatterns = [
@@ -35,4 +36,5 @@ urlpatterns = [
     path("text/<int:id>/upload", TextUploadView.as_view(), name='upload_text'),
     path("text/<int:id>/delete", TextDeleteView.as_view(), name='delete_text'),
     path("profile/", UserProfileView.as_view(), name='profile'),
+    path("profile/finance", UserFinanceView.as_view(), name='finance'),
 ]

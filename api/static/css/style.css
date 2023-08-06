@@ -203,14 +203,14 @@ a {
 }
 
 pre {
-     white-space: pre-wrap;
-     white-space: -moz-pre-wrap;
-     white-space: -pre-wrap;
-     white-space: -o-pre-wrap;
-     word-wrap: break-word;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
 }
 
-.block-text pre{
+.block-text pre {
 }
 
 .politic {
@@ -290,4 +290,44 @@ pre {
 
 .block-btn {
     margin-top: 20px;
+}
+
+.block-user-finance {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-block-finance {
+    margin: 30px 200px 0 200px;
+}
+
+
+.column {
+    float: left;
+    width: 10%;
+    background-color: #003fff;
+    margin-right: 5px;
+    overflow: hidden;
+}
+
+.column:before {
+  content: "";
+  padding-top: 100%;
+  float: left;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
+}
+
+.block-column {
+    margin-top: 50px;
 }

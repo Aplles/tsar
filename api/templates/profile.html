@@ -5,8 +5,13 @@
 {% block content %}
 
     <div class="main-profile">
-        <div>
-            <h1>Профиль пользователя: {{ request.user.username }}</h1>
+        <div class="block-user-finance">
+            <div>
+                <h1>Профиль пользователя: {{ request.user.username }}</h1>
+            </div>
+            <div>
+                <a href="{% url 'finance' %}"><h1>Финансы</h1></a>
+            </div>
         </div>
 
 
@@ -37,15 +42,31 @@
                         {% csrf_token %}
                         <div>
                             <h3>Введите текст</h3>
-                            <textarea class="textarea-text" name="text" id="" cols="90" rows="30"></textarea>
+                            <textarea class="textarea-text" name="text" id="" cols="90" rows="20"></textarea>
                         </div>
+
                         <div>
-                            <button>Отправить</button>
+                            <h3>Компилятор</h3>
+                            <textarea class="textarea-text" name="text" id="" cols="90" rows="10"></textarea>
+                        </div>
+
+                        <div class="block-link-upload">
+                            <div>
+                                <button type="submit" class="btn-upload">Отправить</button>
+                            </div>
+                            <div>
+                                <button type="button" class="btn-upload">Выгрузить</button>
+                            </div>
+
+                            <div>
+                                <button type="button" class="btn-upload">HASH</button>
+                            </div>
                         </div>
                     </form>
                 </div>
             {% endif %}
         </div>
+
 
         <div>
             <h3>Ваши текста:</h3>
@@ -53,7 +74,7 @@
         <div class="container-texts">
             {% for text in texts %}
                 <div class="block-text">
-                    <pre >{{ text.text }}</pre>
+                    <pre>{{ text.text }}</pre>
                     <div class="block-link-upload">
                         <div>
                             <form action="{% url 'upload_text' text.id %}" method="post">
