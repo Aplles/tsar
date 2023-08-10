@@ -1,5 +1,7 @@
-const h = document.querySelector('#h');
-const b = document.body;
+const h = document.getElementById('h');
+const b = document.getElementById('room_id');
+
+
 
 let base = (e) => {
     var x = e.pageX / window.innerWidth - 0.5;

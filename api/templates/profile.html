@@ -2,9 +2,7 @@
 {% block title %}Личный профиль{% endblock %}
 {% load static %}
 
-{% block script %}
-    <script src="{% static 'js/script.js' %}"></script>
-{% endblock %}
+
 
 {% block style %}
     <meta charset="UTF-8">
@@ -14,8 +12,9 @@
 {% endblock %}
 
 {% block content %}
-    <div class="room">
+    <div class="room" id="room_id">
         <div class="house" id="h">
+            <script src="{% static 'js/script.js' %}"></script>
             <div class="h-lights">
                 <div class="h-light"></div>
                 <div class="h-light"></div>
