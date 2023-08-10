@@ -2,145 +2,190 @@
 {% block title %}Личный профиль{% endblock %}
 {% load static %}
 
+{% block script %}
+    <script src="{% static 'js/script.js' %}"></script>
+{% endblock %}
+
+{% block style %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/room.css' %}">
+{% endblock %}
+
 {% block content %}
-
-    <div class="main-profile">
-        <div class="block-user-finance">
-            <div>
-                <h1>Профиль пользователя: {{ request.user.username }}</h1>
+    <div class="room">
+        <div class="house" id="h">
+            <div class="h-lights">
+                <div class="h-light"></div>
+                <div class="h-light"></div>
+                <div class="h-light"></div>
+                <div class="h-light"></div>
+                <div class="h-light"></div>
+                <div class="h-light"></div>
             </div>
-            <div>
-                <a href="{% url 'finance' %}"><h1>Финансы</h1></a>
-            </div>
-        </div>
-
-
-        {% if request.user.is_authenticated %}
-            <div class="block-profile">
-                <form action="{% url 'upload_symbol' %}" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <button type="submit" class="btn-profile">Выгрузить свой шрифт</button>
-                </form>
-            </div>
-            <div class="block-profile">
-                <a href="{% url 'vote_result' %}">
-                    <button class="btn-profile">Ваши результаты голосования</button>
-                </a>
-            </div>
-            <div class="block-profile">
-                <a href="{% url 'keys' %}">
-                    <button class="btn-profile">Ключи</button>
-                </a>
-            </div>
-            <div class="block-profile">
-                <a href="{% url 'email' %}">
-                    <button class="btn-profile">Почта</button>
-                </a>
-            </div>
-        {% endif %}
-
-
-        <div class="main-content">
-            {% if request.user.is_authenticated %}
-                <div class="second-block">
-                    <form action="{% url 'index_text' %}" method="post">
-                        {% csrf_token %}
-                        <div>
-                            <h3>Введите текст</h3>
-                            <textarea class="textarea-text" name="text" id="" cols="90" rows="20"></textarea>
-                            <div class="block-link-upload">
-                                <div>
-                                    <button type="submit" class="btn-upload">Отправить</button>
-                                </div>
-                                <div>
-                                    <button type="button" class="btn-upload">Выгрузить</button>
-                                </div>
-
-                                <div>
-                                    <button type="button" class="btn-upload">HASH</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="block-with-compil">
-                            <div>
-                                <h3>Компилятор</h3>
-                                <textarea class="textarea-text" name="text_kompil" id="" cols="90" rows="10"></textarea>
-                                <div class="block-link-upload">
-                                    <div>
-                                        <button type="submit" class="btn-upload">Отправить</button>
-                                    </div>
-                                    <div>
-                                        <button type="button" class="btn-upload">Выгрузить</button>
-                                    </div>
-
-                                    <div>
-                                        <button type="button" class="btn-upload">HASH</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <h3>Блок возврата</h3>
-                                <textarea class="textarea-text" name="text_kompil" id="" cols="90" rows="10"></textarea>
-                                <div class="block-link-upload">
-                                    <div>
-                                        <button type="submit" class="btn-upload">Отправить</button>
-                                    </div>
-                                    <div>
-                                        <button type="button" class="btn-upload">Выгрузить</button>
-                                    </div>
-
-                                    <div>
-                                        <button type="button" class="btn-upload">HASH</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </form>
+            <div class="h-shadow"></div>
+            <div class="alt">
+                <div class="alt__front face"></div>
+                <div class="alt__back face"></div>
+                <div class="alt__right face"></div>
+                <div class="alt__left face"></div>
+                <div class="alt__top face">
+                    <div class="light"></div>
+                    <div class="light"></div>
+                    <div class="light"></div>
+                    <div class="light"></div>
+                    <div class="light"></div>
+                    <div class="light"></div>
+                    <div class="light"></div>
+                    <div class="light"></div>
+                    <div class="light"></div>
                 </div>
-            {% endif %}
-        </div>
-
-
-        <div>
-            <h3>Ваши текста:</h3>
-        </div>
-        <div class="container-texts">
-            {% for text in texts %}
-                <div class="block-text">
-                    <pre>{{ text.text }}</pre>
-                    <div class="block-link-upload">
-                        <div>
-                            <form action="{% url 'upload_text' text.id %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="btn-upload">Выгрузить</button>
-                            </form>
-                        </div>
-
-                        <div>
-                            <form action="" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="btn-upload">HASH</button>
-                            </form>
-                        </div>
-
-                        <div>
-                            <form action="{% url 'delete_text' text.id %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="btn-upload">Удалить</button>
-                            </form>
-                        </div>
-
-                        <div>
-                            <form action="" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="btn-upload">7 колонка</button>
-                            </form>
-                        </div>
-                    </div>
+                <div class="alt__bottom face"></div>
+            </div>
+            <div class="alb">
+                <div class="alb__front face"></div>
+                <div class="alb__back face"></div>
+                <div class="alb__right face"></div>
+                <div class="alb__left face"></div>
+                <div class="alb__top face"></div>
+                <div class="alb__bottom face"></div>
+            </div>
+            <div class="arb">
+                <div class="arb__front face"></div>
+                <div class="arb__back face"></div>
+                <div class="arb__right face"></div>
+                <div class="arb__left face"></div>
+                <div class="arb__top face"></div>
+                <div class="arb__bottom face"></div>
+            </div>
+            <div class="blt">
+                <div class="blt__front face"></div>
+                <div class="blt__back face"></div>
+                <div class="blt__right face"></div>
+                <div class="blt__left face"></div>
+                <div class="blt__top face"></div>
+                <div class="blt__bottom face"></div>
+            </div>
+            <div class="blt2">
+                <div class="blt2__front face"></div>
+                <div class="blt2__back face"></div>
+                <div class="blt2__right face"></div>
+                <div class="blt2__left face"></div>
+                <div class="blt2__top face"></div>
+                <div class="blt2__bottom face"></div>
+            </div>
+            <div class="blb">
+                <div class="blb__front face"></div>
+                <div class="blb__back face"></div>
+                <div class="blb__right face"></div>
+                <div class="blb__left face"></div>
+                <div class="blb__top face"></div>
+                <div class="blb__bottom face"></div>
+            </div>
+            <div class="blb2">
+                <div class="blb2__front face"></div>
+                <div class="blb2__back face"></div>
+                <div class="blb2__right face"></div>
+                <div class="blb2__left face"></div>
+                <div class="blb2__top face"></div>
+                <div class="blb2__bottom face"></div>
+            </div>
+            <div class="puerta-c">
+                <div class="puerta">
+                    <div class="puerta__front face"></div>
+                    <div class="puerta__back face"></div>
+                    <div class="puerta__right face"></div>
+                    <div class="puerta__left face"></div>
+                    <div class="puerta__top face"></div>
+                    <div class="puerta__bottom face"></div>
                 </div>
-            {% endfor %}
+                <div class="puerta-l">
+                    <div class="puerta-l__front face"></div>
+                    <div class="puerta-l__back face"></div>
+                    <div class="puerta-l__right face"></div>
+                    <div class="puerta-l__left face"></div>
+                    <div class="puerta-l__top face"></div>
+                    <div class="puerta-l__bottom face"></div>
+                </div>
+                <div class="puerta-r">
+                    <div class="puerta-r__front face"></div>
+                    <div class="puerta-r__back face"></div>
+                    <div class="puerta-r__right face"></div>
+                    <div class="puerta-r__left face"></div>
+                    <div class="puerta-r__top face"></div>
+                    <div class="puerta-r__bottom face"></div>
+                </div>
+                <div class="puerta-t">
+                    <div class="puerta-t__front face"></div>
+                    <div class="puerta-t__back face"></div>
+                    <div class="puerta-t__right face"></div>
+                    <div class="puerta-t__left face"></div>
+                    <div class="puerta-t__top face"></div>
+                    <div class="puerta-t__bottom face"></div>
+                </div>
+            </div>
+
+            <!--    Полка-->
+            <div class="librero">
+                <div class="librero__front face"></div>
+                <div class="librero__back face"></div>
+                <div class="librero__right face"></div>
+                <div class="librero__left face"></div>
+                <div class="librero__top face"></div>
+                <div class="librero__bottom face"></div>
+            </div>
+            <!--    Книги-->
+            <div class="libros">
+                <div class="libro">
+                    <div class="libro__front face"></div>
+                    <div class="libro__back face"></div>
+                    <div class="libro__right face"></div>
+                    <div class="libro__left face"></div>
+                    <div class="libro__top face"></div>
+                    <div class="libro__bottom face"></div>
+                </div>
+                <div class="libro">
+                    <div class="libro__front face"></div>
+                    <div class="libro__back face"></div>
+                    <div class="libro__right face"></div>
+                    <div class="libro__left face"></div>
+                    <div class="libro__top face"></div>
+                    <div class="libro__bottom face"></div>
+                </div>
+                <div class="libro">
+                    <div class="libro__front face"></div>
+                    <div class="libro__back face"></div>
+                    <div class="libro__right face"></div>
+                    <div class="libro__left face"></div>
+                    <div class="libro__top face"></div>
+                    <div class="libro__bottom face"></div>
+                </div>
+                <div class="libro">
+                    <div class="libro__front face"></div>
+                    <div class="libro__back face"></div>
+                    <div class="libro__right face"></div>
+                    <div class="libro__left face"></div>
+                    <div class="libro__top face"></div>
+                    <div class="libro__bottom face"></div>
+                </div>
+                <div class="libro">
+                    <div class="libro__front face"></div>
+                    <div class="libro__back face"></div>
+                    <div class="libro__right face"></div>
+                    <div class="libro__left face"></div>
+                    <div class="libro__top face"></div>
+                    <div class="libro__bottom face"></div>
+                </div>
+                <div class="libro">
+                    <div class="libro__front face"></div>
+                    <div class="libro__back face"></div>
+                    <div class="libro__right face"></div>
+                    <div class="libro__left face"></div>
+                    <div class="libro__top face"></div>
+                    <div class="libro__bottom face"></div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

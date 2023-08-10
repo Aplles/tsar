@@ -1,7 +1,146 @@
 {% extends 'base.html' %}
 {% block title %}Работа{% endblock %}
-
+{% load static %}
 
 {% block content %}
 
+    <div class="main-profile">
+        <div class="block-user-finance">
+            <div>
+                <h1>Профиль пользователя: {{ request.user.username }}</h1>
+            </div>
+            <div>
+                <a href="{% url 'finance' %}"><h1>Финансы</h1></a>
+            </div>
+        </div>
+
+
+        {% if request.user.is_authenticated %}
+            <div class="block-profile">
+                <form action="{% url 'upload_symbol' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-profile">Выгрузить свой шрифт</button>
+                </form>
+            </div>
+            <div class="block-profile">
+                <a href="{% url 'vote_result' %}">
+                    <button class="btn-profile">Ваши результаты голосования</button>
+                </a>
+            </div>
+            <div class="block-profile">
+                <a href="{% url 'keys' %}">
+                    <button class="btn-profile">Ключи</button>
+                </a>
+            </div>
+            <div class="block-profile">
+                <a href="{% url 'email' %}">
+                    <button class="btn-profile">Почта</button>
+                </a>
+            </div>
+        {% endif %}
+
+
+        <div class="main-content">
+            {% if request.user.is_authenticated %}
+                <div class="second-block">
+                    <form action="{% url 'index_text' %}" method="post">
+                        {% csrf_token %}
+                        <div>
+                            <h3>Введите текст</h3>
+                            <textarea class="textarea-text" name="text" id="" cols="90" rows="20"></textarea>
+                            <div class="block-link-upload">
+                                <div>
+                                    <button type="submit" class="btn-upload">Отправить</button>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn-upload">Выгрузить</button>
+                                </div>
+
+                                <div>
+                                    <button type="button" class="btn-upload">HASH</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="block-with-compil">
+                            <div>
+                                <h3>Компилятор</h3>
+                                <textarea class="textarea-text" name="text_kompil" id="" cols="90" rows="10"></textarea>
+                                <div class="block-link-upload">
+                                    <div>
+                                        <button type="submit" class="btn-upload">Отправить</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn-upload">Выгрузить</button>
+                                    </div>
+
+                                    <div>
+                                        <button type="button" class="btn-upload">HASH</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3>Блок возврата</h3>
+                                <textarea class="textarea-text" name="text_kompil" id="" cols="90" rows="10"></textarea>
+                                <div class="block-link-upload">
+                                    <div>
+                                        <button type="submit" class="btn-upload">Отправить</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn-upload">Выгрузить</button>
+                                    </div>
+
+                                    <div>
+                                        <button type="button" class="btn-upload">HASH</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+
+
+        <div>
+            <h3>Ваши текста:</h3>
+        </div>
+        <div class="container-texts">
+            {% for text in texts %}
+                <div class="block-text">
+                    <pre>{{ text.text }}</pre>
+                    <div class="block-link-upload">
+                        <div>
+                            <form action="{% url 'upload_text' text.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-upload">Выгрузить</button>
+                            </form>
+                        </div>
+
+                        <div>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-upload">HASH</button>
+                            </form>
+                        </div>
+
+                        <div>
+                            <form action="{% url 'delete_text' text.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-upload">Удалить</button>
+                            </form>
+                        </div>
+
+                        <div>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-upload">7 колонка</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

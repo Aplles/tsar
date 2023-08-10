@@ -11,7 +11,7 @@ document.getElementById('planet').appendChild(renderer.domElement);
 var RADIUS_SPHERE = 3;
 var geometry = new THREE.SphereGeometry(RADIUS_SPHERE, 100, 100)
 var material = new THREE.MeshPhongMaterial();
-material.map = THREE.ImageUtils.loadTexture('static/img/earthcloudmap.png');
+material.map = THREE.ImageUtils.loadTexture('static/img/earthcloudmap.jpeg');
 var sphere = new THREE.Mesh(geometry, material);
 var light = new THREE.DirectionalLight(0xffffff);
 light.position.set(0, 0, 1).normalize();
