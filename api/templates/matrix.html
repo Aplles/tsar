@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Матрица</title>
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+</head>
+<body>
+<div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js'></script>
+    <div class="matrix-text">
+        <!-- Отображение надписи "Matrix" по центру экрана -->
+        <div style="font-size: 120px; color: #0006ff; font-weight: bold"><a href="{% url 'index' %}">Матрица</a></div>
+    </div>
+    <div class="matrix-container">
+    </div>
+</div>
+<script>
+    const langs = [
+        '0101',
+        '10010',
+        '0011',
+        '11010',
+        '101',
+        '1110',
+    ];
+
+    let charSize = 20;
+    let fontSize = 48; // Размер шрифта для надписи "Matrix"
+    let fallRate = charSize / 2;
+    let streams;
+
+    class Char {
+        constructor(value, x, y, speed) {
+            this.value = value;
+            this.x = x;
+            this.y = y;
+            this.speed = speed;
+        }
+
+        draw() {
+            const flick = random(100);
+            // 10 percent chance of flickering a number instead
+            if (flick < 10) {
+                fill(255, 255, 255);
+                text(0, this.x, this.y);
+            } else {
+                text(this.value, this.x, this.y);
+            }
+
+            // fall down
+            this.y = this.y > height ? 0 : this.y + this.speed;
+        }
+    }
+
+    class Stream {
+        constructor(text, x) {
+            const y = random(text.length);
+            const speed = random(2, 10);
+            this.chars = [];
+
+            for (let i = text.length; i >= 0; i--) {
+                this.chars.push(
+                    new Char(text[i], x, (y + text.length - i) * charSize, speed)
+                );
+            }
+        }
+
+        draw() {
+            fill(255, 255, 255);
+            this.chars.forEach((c, i) => {
+                const lit = random(100);
+                if (lit < 30) {
+                    if (i === this.chars.length - 1) {
+                        fill(255, 255, 255);
+                    } else {
+                        fill(255, 255, 255);
+                    }
+                }
+
+                c.draw();
+            });
+        }
+    }
+
+    function createStreams() {
+        for (let i = 0; i < width; i += charSize) {
+            streams.push(new Stream(random(langs), i));
+        }
+    }
+
+    function reset() {
+        streams = [];
+        createStreams();
+    }
+
+    function setup() {
+        createCanvas(innerWidth, innerHeight);
+        reset();
+        frameRate(20);
+        colorMode(HSB);
+        noStroke();
+        textSize(charSize);
+        textFont("monospace");
+        textAlign(CENTER, CENTER);
+        background(0);
+    }
+
+    function draw() {
+        background(0, 0.4);
+        streams.forEach((s) => s.draw());
+    }
+
+    function windowResized() {
+        resizeCanvas(innerWidth, innerHeight);
+        background(0);
+        reset();
+    }
+</script>
+
+</div>
+</body>
+</html>

@@ -13,7 +13,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView
+from django.views.generic import CreateView, TemplateView
 
 from .forms import RegisterUserForm, LoginUserForm
 from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text, User, Message, Balance
@@ -287,3 +287,7 @@ class WorkShowView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'work.html', context={
         })
+
+
+class MatrixPage(TemplateView):
+    template_name = 'matrix.html'
