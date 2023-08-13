@@ -6,6 +6,7 @@ from django.db import models
 
 
 class User(AbstractUser):  # Создание класса Пользователя и наследуемся от AbstractUser
+    ip_address = models.CharField(max_length=255, verbose_name="Ip-адресс")
 
     def __str__(self):  # Магический метод __str__, который отображает объект в красивом виде
         return self.username

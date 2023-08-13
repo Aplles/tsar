@@ -11,12 +11,12 @@ from django.contrib.auth.views import LoginView
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import CreateView, TemplateView
 
 from .forms import RegisterUserForm, LoginUserForm
-from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text, User, Message, Balance
+from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text, User, Message, Balance, TypeQuestion
 
 
 class MainPageView(View):
@@ -56,8 +56,19 @@ class UserRegisterView(CreateView):
             result += cls.LINE_SYMBOL[random.randint(0, len(cls.LINE_SYMBOL) - 1)]
         return result
 
+    @staticmethod
+    def get_client_ip(request):  # ф-ция определяющая ip адресс с которого пробросили запрос
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')  # request отвечает за данные с запроса
+        if x_forwarded_for:  # мета отвечает за данные в запросе
+            ip = x_forwarded_for.split(',')[0].strip()  # разбивает ip адресс по запятой и берёт 1й элемент
+        else:  # а также удаляет пробелы до и после строки
+            ip = request.META.get('REMOTE_ADDR')
+        return ip  # возращает ip адресс из ф-ции
+
     def form_valid(self, form):
-        user = form.save()
+        user = form.save(commit=False)
+        user.ip_address = self.get_client_ip(self.request)
+        user.save()
         login(self.request, user)
         for symbol in self.LIST_REQUIRED_SYMBOLS:
             binary = ""
@@ -79,14 +90,17 @@ class UserLoginView(LoginView):
     template_name = 'login.html'
 
     def get_success_url(self):
-        return reverse_lazy('profile')
+        return reverse_lazy('studying')
 
 
-class VoteListCreateView(View):
-
+class VoteShowView(View):
     def get(self, request, *args, **kwargs):
         return render(request, "vote.html", context={
-            'questions': Question.objects.filter(questions_user__answer__isnull=True)
+            'questions': Question.objects.filter(
+                questions_user__answer__isnull=True,
+                type_question__id=kwargs['id']
+            ),
+            'type_question': kwargs['id']
         })
 
     def post(self, request, *args, **kwargs):
@@ -97,7 +111,15 @@ class VoteListCreateView(View):
             answer=answer,
             user=request.user,
         )
-        return redirect('vote')
+        return redirect(reverse('questions', kwargs={'id': kwargs['id']}))
+
+
+class VoteListCreateView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, "type_question.html", context={
+            'type_questions': TypeQuestion.objects.all()
+        })
 
 
 class EmailSendView(View):

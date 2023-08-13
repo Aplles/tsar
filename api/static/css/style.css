@@ -105,10 +105,14 @@ a {
 
 .login {
     font-size: 26px;
+    height: 30px;
+    width: 100%;
 }
 
 .password {
     font-size: 20px;
+    height: 30px;
+    width: 100%;
 }
 
 .block-form-login {
@@ -137,8 +141,8 @@ a {
 }
 
 .blink {
-    -webkit-animation: blink 2s linear infinite;
-    animation: blink 2s linear infinite;
+    -webkit-animation: blink 3s linear infinite;
+    animation: blink 3s linear infinite;
     font-size: 56px;
     font-weight: bold;
 }
@@ -269,8 +273,8 @@ pre {
 .block-zapoved {
     display: flex;
     justify-content: space-between;
-    padding: 0 200px;
-    margin-bottom: 50px;
+    padding: 0 270px;
+    margin-bottom: 20px;
 }
 
 .send-mail {
@@ -359,7 +363,6 @@ pre {
     display: flex;
     flex-direction: column;
     font-size: 20px;
-    color: lime;
     pointer-events: none;
     z-index: 1;
 }
@@ -374,4 +377,58 @@ pre {
     top: 0;
     left: 0;
     z-index: 100;
+}
+
+.text_matrix {
+    color: #3E00F7 !important;
+}
+
+
+@keyframes pulsate {
+    50% {
+        text-shadow: 0 -1px rgba(0, 0, 0, .3), 0 0 5px #0020f0, 0 0 8px #0021f8;
+    }
+}
+
+.text_matrix {
+    text-decoration: none;
+    -webkit-animation: pulsate 2s linear infinite;
+    animation: pulsate 2s linear infinite;
+}
+
+
+.block-type-questions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.block-type {
+    border: 2px solid grey;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+.block-type a {
+    color: white !important;
+}
+
+.block-type:hover {
+    background-color: gray;
+}
+
+.main-studying {
+    margin-top: 50px;
+    padding: 0 200px;
+}
+
+.border-index {
+    border: 2px solid gray;
+    padding: 3px 5px;
+    width: 100px;
+    text-align: center;
+}
+
+.border-index p {
+    padding: 0;
+    margin: 0;
 }

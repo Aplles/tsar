@@ -1,10 +1,26 @@
 from django.contrib import admin
 from .models import User, HandWriting, BinaryDict, Text, Message, Room
-from .models import Question, Answer, TypeAnswer, UserAnswer, Balance
+from .models import Question, Answer, TypeAnswer, UserAnswer, Balance, TypeQuestion
 
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
+    list_display = ('id', 'username', 'ip_address')
+    list_display_links = ('id',)
+    search_fields = ('username', )
+    save_on_top = True
+    list_filter = ('is_staff', 'is_active', 'is_superuser')
+    ordering = ('id', 'username')
+    fieldsets = [
+        ("Общая информация", {'fields': ['username', 'password', 'ip_address']}),
+        ('Права доступа', {'fields': ['is_superuser', 'user_permissions', 'groups', 'is_staff', 'is_active']}),
+        ('Прочая информация',
+         {'fields': ['last_login', 'date_joined', 'first_name', 'last_name']}),
+    ]
+
+
+@admin.register(TypeQuestion)
+class TypeQuestionAdmin(admin.ModelAdmin):
     pass
 
 

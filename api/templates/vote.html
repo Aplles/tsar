@@ -11,7 +11,7 @@
             <h2>Осталось вопросов: {{ questions.count }}</h2>
         {% endif %}
         {% for question in questions %}
-            <form method="post" action="{% url 'vote' %}">
+            <form method="post" action="{% url 'questions' type_question %}">
                 {% csrf_token %}
                 <div class="block-question">
                     <h3>{{ question.text }}</h3>

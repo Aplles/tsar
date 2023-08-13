@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Выбор голосования{% endblock %}
+{% load static %}
+
+{% block content %}
+    <div class="main-block-vote">
+        <h1>Выберите тему голосования</h1>
+
+        <div class="block-type-questions">
+            {% for question in type_questions %}
+                <div class="block-type">
+                    <a href="{% url 'questions' question.id %}">{{ question.title }}</a>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+{% endblock %}

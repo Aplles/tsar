@@ -21,12 +21,14 @@ from api.views import (
     StudyingShowView,
     WorkShowView,
     MatrixPage,
+    VoteShowView,
 )
 
 urlpatterns = [
     path('', MatrixPage.as_view(), name='matrix'),
     path('planet/', MainPageView.as_view(), name="index"),
     path('votes/', VoteListCreateView.as_view(), name="vote"),
+    path('votes/<int:id>/', VoteShowView.as_view(), name="questions"),
     path('votes/result/', VoteListResultView.as_view(), name="vote_result"),
     path('user/login/', UserLoginView.as_view(), name="login"),
     path('user/register/', UserRegisterView.as_view(), name="register"),
