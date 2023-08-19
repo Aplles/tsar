@@ -7,7 +7,7 @@ from .models import Question, Answer, TypeAnswer, UserAnswer, Balance, TypeQuest
 class UserAdmin(admin.ModelAdmin):
     list_display = ('id', 'username', 'ip_address')
     list_display_links = ('id',)
-    search_fields = ('username', )
+    search_fields = ('username',)
     save_on_top = True
     list_filter = ('is_staff', 'is_active', 'is_superuser')
     ordering = ('id', 'username')
@@ -19,9 +19,14 @@ class UserAdmin(admin.ModelAdmin):
     ]
 
 
+class QuestionInline(admin.TabularInline):
+    model = Question
+    extra = 1
+
+
 @admin.register(TypeQuestion)
 class TypeQuestionAdmin(admin.ModelAdmin):
-    pass
+    inlines = [QuestionInline, ]
 
 
 @admin.register(Room)
