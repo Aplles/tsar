@@ -22,7 +22,7 @@ class User(AbstractUser):  # Создание класса Пользовате�
     email = models.EmailField(unique=True, verbose_name='почта')
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
 
     def __str__(self):  # Магический метод __str__, который отображает объект в красивом виде
         return self.username
