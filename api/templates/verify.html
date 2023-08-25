@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Регистрация{% endblock %}
+
+
+{% block content %}
+    <div class="block-login-user">
+        <h3 class="text-auth">Регистрация</h3>
+        <div class="block-form-login">
+            <form action="{% url 'verify' %}" method="post">
+                {% csrf_token %}
+                <div class="block-input">
+                    <label for="email">Введите почту</label>
+                    <input id="email" type="email" name="email">
+                </div>
+                <div class="block-input">
+                    <label for="pass">Введите пароль</label>
+                    <input id="pass" type="password" name="pass">
+                </div>
+
+                <div class="select_role">
+                    <h3>Ваше имя: "Пользователь"</h3>
+                    <p>Возможные имена:</p>
+                    <select name="" id="">
+                        {% for s in status %}
+                            <option value="">{{ s.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="politic">
+                    <label for="politic">
+                        <input type="checkbox" id="politic" value="Политика конфиденциальности">
+                        <a href="#" class="small-text politic">
+                            <small>Политика конфиденциальности</small>
+                        </a>
+                    </label>
+                </div>
+                <button type="submit" class="btn-login">Зарегестрироваться</button>
+            </form>
+
+            <div class="block-with-text-reg-acc">
+                <p class="text-create-acc">Если уже есть аккаунт, ты можешь авторизоваться</p>
+                <div>
+                    <a href="{% url "login" %}" class="small-text">
+                        <small>Авторизоваться</small>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -3,6 +3,11 @@ body {
     color: white;
 }
 
+p {
+    margin: 0;
+    padding: 0;
+}
+
 h3 {
     margin: 0;
     padding: 0;
@@ -431,4 +436,43 @@ pre {
 .border-index p {
     padding: 0;
     margin: 0;
+}
+
+.block-input {
+    text-align: left;
+    margin: 15px 0;
+}
+
+.block-input label {
+    font-size: 24px;
+}
+
+.block-input input {
+    width: 100%;
+    height: 25px;
+}
+
+.politic {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+
+.select_role {
+    width: 100%;
+    text-align: left;
+    margin: 10px 0;
+}
+
+.select_role h3 {
+    font-size: 23px;
+}
+
+.select_role p {
+    font-size: 20px;
+}
+
+.select_role select {
+    font-size: 18px;
+    width: 100%;
 }

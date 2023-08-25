@@ -6,7 +6,6 @@ from api.views import (
     UserRegisterView,
     logout_user,
     VoteListCreateView,
-    EmailSendView,
     UploadSymbolView,
     TextCreateView,
     UserProfileView,
@@ -22,6 +21,7 @@ from api.views import (
     WorkShowView,
     MatrixPage,
     VoteShowView,
+    UserVerifyView,
 )
 
 urlpatterns = [
@@ -32,9 +32,9 @@ urlpatterns = [
     path('votes/result/', VoteListResultView.as_view(), name="vote_result"),
     path('user/login/', UserLoginView.as_view(), name="login"),
     path('user/register/', UserRegisterView.as_view(), name="register"),
+    path('user/register/verify/', UserVerifyView.as_view(), name="verify"),
     path('user/logout/', logout_user, name="logout"),
 
-    path("send/", EmailSendView.as_view(), name='send'),
     path("mail/", EmailShowView.as_view(), name='email'),
     path("mail/sent_by_user/", EmailSentShowView.as_view(), name='user_mails'),
     path("mail/<int:id>/upload", MessageUploadView.as_view(), name='upload_message'),

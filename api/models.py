@@ -6,7 +6,23 @@ from django.db import models
 
 
 class User(AbstractUser):  # Создание класса Пользователя и наследуемся от AbstractUser
+    KEY_MAN = "Key keeper"
+    CENTURION = "Centurion"
+    FOREVER = "Ten's manager"
+    USER = "User"
+
+    STATUS = (
+        (KEY_MAN, 'Ключник'),
+        (CENTURION, 'Сотник'),
+        (FOREVER, 'Десятник'),
+        (USER, 'Пользователь'),
+    )
+    username = models.CharField(max_length=150, choices=STATUS, verbose_name="пользователь")
     ip_address = models.CharField(max_length=255, verbose_name="Ip-адресс")
+    email = models.EmailField(unique=True, verbose_name='почта')
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     def __str__(self):  # Магический метод __str__, который отображает объект в красивом виде
         return self.username
@@ -15,6 +31,14 @@ class User(AbstractUser):  # Создание класса Пользовате�
         db_table = 'users'  # Название таблицы в БД
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+
+
+class Code(models.Model):
+    code = models.CharField(max_length=6, verbose_name="Код пользователя")
+    email = models.CharField(max_length=255, verbose_name="Почта")
+
+    def __str__(self):
+        return f"{self.code} - {self.email}"
 
 
 class HandWriting(models.Model):  # Создание класса Подписи и наследуемся от models.Model

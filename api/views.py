@@ -6,17 +6,21 @@ from email.header import Header
 from functools import lru_cache
 
 import openpyxl
-from django.contrib.auth import logout, login
+from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.views import LoginView
+from django.core.mail import send_mail
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
+from django.utils.crypto import get_random_string
 from django.views import View
 from django.views.generic import CreateView, TemplateView
 
+from tsartvie import settings
 from .forms import RegisterUserForm, LoginUserForm
-from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text, User, Message, Balance, TypeQuestion
+from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text, User, Message, Balance, TypeQuestion, \
+    Code
 
 
 class MainPageView(View):
@@ -33,12 +37,8 @@ def logout_user(request):
     return redirect('index')
 
 
-class UserRegisterView(CreateView):
-    form_class = RegisterUserForm
-    template_name = 'register.html'
-    success_url = reverse_lazy('index')
-
-    LINE_SYMBOL = '1234567890-=qwertyuiop[]asdfghjkl;zxcvbnm,./~!@#$%^&*()_+QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>?'
+class UserRegisterView(View):
+    LINE_SYMBOL = '1234567890-qwertyuiop[]asdfghjkl;zxcvbnm,./~!@#$%^&*()_+QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>?'
     LIST_REQUIRED_SYMBOLS = ["", "'", "-", " ", "!", "\"", "#", "$", "%", "&", "(", ")", "*", ",", ".", "/", ":", ";",
                              "?", "@", "[", "]", "^", "_", "{", "|", "}", "~", "+", "<", ">", "0", "1", "2", "3",
                              "4", "5", "6", "7", "8", "9", "a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F",
@@ -65,10 +65,33 @@ class UserRegisterView(CreateView):
             ip = request.META.get('REMOTE_ADDR')
         return ip  # возращает ip адресс из ф-ции
 
-    def form_valid(self, form):
-        user = form.save(commit=False)
+    @staticmethod
+    @lru_cache
+    def _code(email, code):
+        try:
+            return Code.objects.get(email=email, code=code)
+        except Code.DoesNotExist:
+            return None
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'register.html')
+
+    def post(self, request, *args, **kwargs):
+        user_email = request.session.get('user_email')
+        code_user = request.POST.get("code")
+        if not code_user or not self._code(user_email, code_user):
+            return redirect('register')
+        user = User.objects.create(
+            email=user_email,
+            password=request.session.get('user_pass'),
+            username=User.USER
+        )
+        user.set_password(request.session.get('user_pass'))
         user.ip_address = self.get_client_ip(self.request)
         user.save()
+        self._code(user_email, code_user).delete()
+        del request.session['user_email']
+        del request.session['user_pass']
         login(self.request, user)
         for symbol in self.LIST_REQUIRED_SYMBOLS:
             binary = ""
@@ -85,12 +108,37 @@ class UserRegisterView(CreateView):
         return redirect('profile')
 
 
-class UserLoginView(LoginView):
-    form_class = LoginUserForm
-    template_name = 'login.html'
+class UserLoginView(View):
 
-    def get_success_url(self):
-        return reverse_lazy('studying')
+    @property
+    @lru_cache
+    def _user(self):
+        try:
+            return User.objects.get(
+                ip_address=self.get_client_ip(self.request)
+            )
+        except User.DoesNotExist:
+            return None
+
+    @staticmethod
+    def get_client_ip(request):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        return ip
+
+    def get(self, request):
+        return render(request, 'login.html')
+
+    def post(self, request):
+        if not self._user:
+            return render(request, 'login.html', context={
+                "error": "Такого пользователя нет"
+            })
+        login(request, self._user)
+        return redirect('work')
 
 
 class VoteShowView(View):
@@ -122,22 +170,6 @@ class VoteListCreateView(View):
         })
 
 
-class EmailSendView(View):
-
-    def post(self, request, *args, **kwargs):
-        mailsender = smtplib.SMTP('smtp.gmail.com', 587)
-        mailsender.starttls()
-        mailsender.login('imperiya66isa@gmail.com', 'hzrnhucrocxevivl')
-        mail_recipient = 'david26121980@gmail.com'
-        mail_subject = 'Тема сообщения'
-        mail_body = 'Текст сообщения'
-        msg = MIMEText(mail_body, 'plain', 'utf-8')
-        msg['Subject'] = Header(mail_subject, 'utf-8')
-        mailsender.sendmail('imperiya66isa@gmail.com', mail_recipient, msg.as_string())
-        mailsender.quit()
-        return redirect("index")
-
-
 class UploadSymbolView(View):
 
     def post(self, request, *args, **kwargs):
@@ -164,7 +196,7 @@ class TextCreateView(View):
             text=request.POST['text'],
             user=request.user
         )
-        return redirect('profile')
+        return redirect('work')
 
 
 class UserProfileView(View):
@@ -308,8 +340,38 @@ class WorkShowView(View):
 
     def get(self, request, *args, **kwargs):
         return render(request, 'work.html', context={
+            'texts': Text.objects.filter(user=request.user).order_by('-created_at')
         })
 
 
 class MatrixPage(TemplateView):
     template_name = 'matrix.html'
+
+
+class UserVerifyView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, "verify.html", context={
+            'status': User.STATUS
+        })
+
+    def post(self, request, *args, **kwargs):
+        email = request.POST.get('email')
+        password = request.POST.get('pass')
+        if not email or not password:
+            return redirect('verify')
+        code = get_random_string(6, '0123456789')
+        Code.objects.create(
+            email=email,
+            code=code
+        )
+        self.request.session['user_email'] = email
+        self.request.session['user_pass'] = password
+        send_mail(
+            subject='Верификация почты',
+            message=f'Для верификации почты введите данный код {code}',
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[email],
+            fail_silently=True,
+        )
+        return redirect('register')
