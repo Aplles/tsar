@@ -23,6 +23,12 @@ class User(AbstractUser):  # Создание класса Пользовате�
         null=True,
         blank=True
     )
+    username = models.CharField(
+        max_length=255,
+        verbose_name="Логин",
+        null=True,
+        blank=True
+    )
     ip_address = models.CharField(max_length=255, verbose_name="Ip-адресс")
     email = models.EmailField(unique=True, verbose_name='почта')
 
