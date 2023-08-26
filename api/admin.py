@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, HandWriting, BinaryDict, Text, Message, Room, Code
+from .models import User, HandWriting, BinaryDict, Text, Message, Room, Code, Verdict, Commandment
 from .models import Question, Answer, TypeAnswer, UserAnswer, Balance, TypeQuestion
 
 
@@ -31,6 +31,16 @@ class TypeQuestionAdmin(admin.ModelAdmin):
 
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Verdict)
+class VerdictAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Commandment)
+class CommandmentAdmin(admin.ModelAdmin):
     pass
 
 

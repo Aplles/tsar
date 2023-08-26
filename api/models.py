@@ -206,3 +206,21 @@ class Room(models.Model):
         db_table = 'rooms'  # Название таблицы в БД
         verbose_name = 'Комната'
         verbose_name_plural = 'Комнаты'
+
+
+class Commandment(models.Model):
+    text = models.TextField(verbose_name="Текст")
+
+    class Meta:
+        db_table = 'commandments'  # Название таблицы в БД
+        verbose_name = 'Заповедь'
+        verbose_name_plural = 'Заповеди'
+
+
+class Verdict(models.Model):
+    text = models.TextField(verbose_name="Текст")
+
+    class Meta:
+        db_table = 'verdicts'  # Название таблицы в БД
+        verbose_name = 'Вердикт'
+        verbose_name_plural = 'Вердикты'

@@ -22,6 +22,7 @@ from api.views import (
     MatrixPage,
     VoteShowView,
     UserVerifyView,
+    VerdictShowView,
 )
 
 urlpatterns = [
@@ -49,5 +50,7 @@ urlpatterns = [
 
     path("profile/studying", StudyingShowView.as_view(), name='studying'),
     path("profile/work", WorkShowView.as_view(), name='work'),
+
+    path("verdict/<int:id>", VerdictShowView.as_view(), name='verdict')
 
 ]

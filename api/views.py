@@ -1,33 +1,38 @@
-import csv
 import random
-import smtplib
-from email.mime.text import MIMEText
-from email.header import Header
 from functools import lru_cache
 
 import openpyxl
-from django.contrib.auth import logout, login, authenticate
-from django.contrib.auth.views import LoginView
+from django.contrib.auth import logout, login
 from django.core.mail import send_mail
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.views import View
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import TemplateView
 
 from tsartvie import settings
-from .forms import RegisterUserForm, LoginUserForm
 from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text, User, Message, Balance, TypeQuestion, \
-    Code
+    Code, Verdict, Commandment
 
 
 class MainPageView(View):
 
     def get(self, request, *args, **kwargs):
         return render(request, "index.html", context={
-            'index': True
+            'index': True,
+            'verdicts': Verdict.objects.all(),
+            'commandments': Commandment.objects.all()
+        })
+
+
+class VerdictShowView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'verdict.html', context={
+            'verdict': Verdict.objects.get(id=kwargs['id']),
+            'index': True,
         })
 
 

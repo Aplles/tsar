@@ -30,68 +30,21 @@
     </div>
     <div id="planet"></div>
     <div class="block-zapoved">
-        <div class="border-index">
-            <p>Заповедь 1</p>
-        </div>
-        <div class="border-index">
-            <p>Заповедь 2</p>
-        </div>
-        <div class="border-index">
-            <p>Заповедь 3</p>
-        </div>
-        <div class="border-index">
-            <p>Заповедь 4</p>
-        </div>
-        <div class="border-index">
-            <p>Заповедь 5</p>
-        </div>
-        <div class="border-index">
-            <p>Заповедь 6</p>
-        </div>
-        <div class="border-index">
-            <p>Заповедь 7</p>
-        </div>
-        <div class="border-index">
-            <p>Заповедь 8</p>
-        </div>
-        <div class="border-index">
-            <p>Заповедь 9</p>
-        </div>
-        <div class="border-index">
-            <p>Заповедь 10</p>
-        </div>
+        {% for commandment in commandments %}
+            <div class="border-index">
+                <p>Заповедь {{ forloop.counter }}</p>
+            </div>
+        {% endfor %}
     </div>
 
     <div class="block-zapoved">
-        <div class="border-index">
-            <p>Вердикт 1</p>
-        </div>
-        <div class="border-index">
-            <p>Вердикт 2</p>
-        </div>
-        <div class="border-index">
-            <p>Вердикт 3</p>
-        </div>
-        <div class="border-index">
-            <p>Вердикт 4</p>
-        </div>
-        <div class="border-index">
-            <p>Вердикт 5</p>
-        </div>
-        <div class="border-index">
-            <p>Вердикт 6</p>
-        </div>
-        <div class="border-index">
-            <p>Вердикт 7</p>
-        </div>
-        <div class="border-index">
-            <p>Вердикт 8</p>
-        </div>
-        <div class="border-index">
-            <p>Вердикт 9</p>
-        </div>
-        <div class="border-index">
-            <p>Вердикт 10</p>
+        {% for verdict in verdicts %}
+            <div class="border-index">
+                <a href="{% url 'verdict' verdict.id %}">
+                    <p>Вердикт {{ forloop.counter }}</p>
+                </a>
+            </div>
+        {% endfor %}
         </div>
     </div>
 
