@@ -14,7 +14,7 @@ from django.views.generic import TemplateView
 
 from tsartvie import settings
 from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text, User, Message, Balance, TypeQuestion, \
-    Code, Verdict, Commandment
+    Code, Verdict, Commandment, Role
 
 
 class MainPageView(View):
@@ -89,7 +89,7 @@ class UserRegisterView(View):
         user = User.objects.create(
             email=user_email,
             password=request.session.get('user_pass'),
-            username=User.USER
+            username=user_email.split("@")[0]
         )
         user.set_password(request.session.get('user_pass'))
         user.ip_address = self.get_client_ip(self.request)
@@ -357,7 +357,7 @@ class UserVerifyView(View):
 
     def get(self, request, *args, **kwargs):
         return render(request, "verify.html", context={
-            'status': User.STATUS
+            'status': Role.objects.all()
         })
 
     def post(self, request, *args, **kwargs):
