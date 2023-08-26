@@ -5,24 +5,29 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class User(AbstractUser):  # Создание класса Пользователя и наследуемся от AbstractUser
-    KEY_MAN = "Key keeper"
-    CENTURION = "Centurion"
-    FOREVER = "Ten's manager"
-    USER = "User"
+class Role(models.Model):
+    role = models.CharField(max_length=255, unique=True, verbose_name="Роль")
+    description = models.TextField(verbose_name="Описание роли")
 
-    STATUS = (
-        (KEY_MAN, 'Ключник'),
-        (CENTURION, 'Сотник'),
-        (FOREVER, 'Десятник'),
-        (USER, 'Пользователь'),
+    class Meta:  # Мета класс
+        db_table = 'roles'  # Название таблицы в БД
+        verbose_name = 'Роль'
+        verbose_name_plural = 'Роли'
+
+
+class User(AbstractUser):  # Создание класса Пользователя и наследуемся от AbstractUser
+    role = models.ForeignKey(
+        Role,
+        on_delete=models.CASCADE,
+        verbose_name="Роль",
+        null=True,
+        blank=True
     )
-    username = models.CharField(max_length=150, choices=STATUS, verbose_name="пользователь")
     ip_address = models.CharField(max_length=255, verbose_name="Ip-адресс")
     email = models.EmailField(unique=True, verbose_name='почта')
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = []
 
     def __str__(self):  # Магический метод __str__, который отображает объект в красивом виде
         return self.username

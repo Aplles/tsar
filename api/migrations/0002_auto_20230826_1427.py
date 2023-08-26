@@ -41,7 +41,7 @@ def collect_binary(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('api', '0003_binarydict'),
+        ('api', '0001_initial'),
     ]
 
     operations = [
