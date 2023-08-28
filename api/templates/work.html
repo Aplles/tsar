@@ -2,6 +2,55 @@
 {% block title %}Работа{% endblock %}
 {% load static %}
 
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            function getCookie(c_name) {
+                if (document.cookie.length > 0) {
+                    c_start = document.cookie.indexOf(c_name + "=");
+                    if (c_start !== -1) {
+                        c_start = c_start + c_name.length + 1;
+                        c_end = document.cookie.indexOf(";", c_start);
+                        if (c_end === -1) c_end = document.cookie.length;
+                        return unescape(document.cookie.substring(c_start, c_end));
+                    }
+                }
+                return "";
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken"),
+                }
+            });
+            $(document).on('click', '.compil-button', function (e) {
+                const selectedCheckbox = $('input[name="type"]:checked');
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'compil_text' %}",
+                    contentType: "application/json",
+                    data: {
+                        text_type: selectedCheckbox.val(),
+                        text: $('.textarea-text').val(),
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        $('#simple_text').text(response.result['simple'])
+                        $('#hexadecimal_text').text(response.result['hexadecimal'])
+                        $('#binary_text').text(response.result['binary'])
+                        console.log(response.result['hexadecimal'])
+                    },
+                    error: function (response) {
+                        console.log("Error");
+                    }
+                });
+                return false;
+            });
+        })
+    </script>
+{% endblock %}
+
+
 {% block content %}
 
     <div class="main-profile">
@@ -40,82 +89,82 @@
         {% endif %}
 
 
-        <div class="main-content">
+        <div class="main-content-work">
             {% if request.user.is_authenticated %}
                 <div class="second-block">
                     <form action="{% url 'index_text' %}" method="post">
                         {% csrf_token %}
-                        <div>
+                        <div class="block-input-text">
                             <h3>Введите текст</h3>
-                            <textarea class="textarea-text" name="text" id="" cols="90" rows="20"></textarea>
+                            <div class="input-text">
+                                <div>
+                                    <textarea class="textarea-text" name="text" id="" cols="60" rows="6"></textarea>
+                                </div>
+                                <div class="select-block">
+                                    <div class="select-type">
+                                        <label for="simple">
+                                            <input name="type" id="simple" type="radio" value="simple" checked>
+                                            Обычное представление
+                                        </label>
+                                    </div>
+                                    <div class="select-type">
+                                        <label for="hexadecimal">
+                                            <input name="type" id="hexadecimal" type="radio" value="hexadecimal">
+                                            Шестнадцатеричное представление
+                                        </label>
+                                    </div>
+                                    <div class="select-type">
+                                        <label for="binary">
+                                            <input name="type" id="binary" type="radio" value="binary">
+                                            Бинарное представление
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="block-link-upload">
+                                <div>
+                                    <button type="button" class="btn-upload compil-button">Компилятор</button>
+                                </div>
                                 <div>
                                     <button type="submit" class="btn-upload">Отправить</button>
                                 </div>
                                 <div>
                                     <button type="button" class="btn-upload">Выгрузить</button>
                                 </div>
-
                                 <div>
                                     <button type="button" class="btn-upload">HASH</button>
                                 </div>
                             </div>
                         </div>
-
-
-                        <div class="block-with-compil">
-                            <div>
-                                <h3>Компилятор</h3>
-                                <textarea class="textarea-text" name="text_kompil" id="" cols="90" rows="10"></textarea>
-                                <div class="block-link-upload">
-                                    <div>
-                                        <button type="submit" class="btn-upload">Отправить</button>
-                                    </div>
-                                    <div>
-                                        <button type="button" class="btn-upload">Выгрузить</button>
-                                    </div>
-
-                                    <div>
-                                        <button type="button" class="btn-upload">HASH</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <h3>Блок возврата</h3>
-                                <textarea class="textarea-text" name="text_kompil" id="" cols="90" rows="10"></textarea>
-                                <div class="block-link-upload">
-                                    <div>
-                                        <button type="submit" class="btn-upload">Отправить</button>
-                                    </div>
-                                    <div>
-                                        <button type="button" class="btn-upload">Выгрузить</button>
-                                    </div>
-
-                                    <div>
-                                        <button type="button" class="btn-upload">HASH</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3>Введите текст</h3>
-                            <textarea class="textarea-text" name="text" id="" cols="90" rows="20"></textarea>
-                            <div class="block-link-upload">
-                                <div>
-                                    <button type="submit" class="btn-upload">Отправить</button>
-                                </div>
-                                <div>
-                                    <button type="button" class="btn-upload">Выгрузить</button>
-                                </div>
-
-                                <div>
-                                    <button type="button" class="btn-upload">HASH</button>
-                                </div>
-                            </div>
-                        </div>
-
                     </form>
+
+                    <div class="block-compil">
+                        <div class="compil">
+                            <div class="text-compil">
+                                <h3>Обычное представление</h3>
+                            </div>
+                            <div>
+                                <pre id="simple_text">---|||---</pre>
+                            </div>
+                        </div>
+                        <div class="compil">
+                            <div class="text-compil">
+                                <h3>Шестнадцатеричное представление</h3>
+                            </div>
+                            <div>
+                                <pre id="hexadecimal_text">---|||---</pre>
+                            </div>
+                        </div>
+                        <div class="compil">
+                            <div class="text-compil">
+                                <h3>Бинарное представление</h3>
+                            </div>
+                            <div>
+                                <pre id="binary_text">---|||---</pre>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             {% endif %}
         </div>

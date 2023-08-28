@@ -23,6 +23,7 @@ from api.views import (
     VoteShowView,
     UserVerifyView,
     VerdictShowView,
+    TextCompilView,
 )
 
 urlpatterns = [
@@ -42,6 +43,7 @@ urlpatterns = [
     path("upload_symbol/", UploadSymbolView.as_view(), name='upload_symbol'),
 
     path("text/", TextCreateView.as_view(), name='index_text'),
+    path("text/compil/", TextCompilView.as_view(), name='compil_text'),
     path("text/<int:id>/upload", TextUploadView.as_view(), name='upload_text'),
     path("text/<int:id>/delete", TextDeleteView.as_view(), name='delete_text'),
     path("profile/", UserProfileView.as_view(), name='profile'),
@@ -51,6 +53,6 @@ urlpatterns = [
     path("profile/studying", StudyingShowView.as_view(), name='studying'),
     path("profile/work", WorkShowView.as_view(), name='work'),
 
-    path("verdict/<int:id>", VerdictShowView.as_view(), name='verdict')
+    path("verdict/<int:id>", VerdictShowView.as_view(), name='verdict'),
 
 ]

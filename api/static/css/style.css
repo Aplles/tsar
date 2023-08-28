@@ -1,3 +1,8 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: black;
     color: white;
@@ -16,11 +21,11 @@ h3 {
 .main-content {
     margin: 50px auto 0 auto;
     display: flex;
+    background-color: black;
 }
 
 .second-block {
     color: white;
-    text-align: center;
     margin: 0 auto;
 }
 
@@ -219,6 +224,10 @@ pre {
 
 .politic {
     font-size: 20px;
+}
+
+.block-link-upload {
+    margin-top: 10px;
 }
 
 .block-link-upload div {
@@ -475,4 +484,52 @@ pre {
 .select_role select {
     font-size: 18px;
     width: 100%;
+}
+
+
+.main-content-work {
+    border-top: 2px solid gray;
+    margin-bottom: 30px;
+    padding-top: 10px;
+}
+
+.textarea-text {
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: gray;
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.block-compil {
+    display: flex;
+    justify-content: space-between;
+}
+
+.compil {
+    margin-top: 15px;
+    border: 2px solid gray;
+    width: 30%;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.text-compil {
+    border-bottom: 1px solid gray;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+.input-text {
+    display: flex;
+}
+
+.select-block {
+    margin-left: 15px;
+}
+
+.select-type {
+    font-size: 20px;
+    margin-top: 10px;
 }

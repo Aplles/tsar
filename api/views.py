@@ -11,6 +11,8 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.views import View
 from django.views.generic import TemplateView
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from tsartvie import settings
 from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text, User, Message, Balance, TypeQuestion, \
@@ -44,7 +46,7 @@ def logout_user(request):
 
 class UserRegisterView(View):
     LINE_SYMBOL = '1234567890-qwertyuiop[]asdfghjkl;zxcvbnm,./~!@#$%^&*()_+QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>?'
-    LIST_REQUIRED_SYMBOLS = ["", "'", "-", " ", "!", "\"", "#", "$", "%", "&", "(", ")", "*", ",", ".", "/", ":", ";",
+    LIST_REQUIRED_SYMBOLS = ["", "'", "-", " ", "!", "#", "$", "%", "&", "(", ")", "*", ",", ".", "/", ":", ";",
                              "?", "@", "[", "]", "^", "_", "{", "|", "}", "~", "+", "<", ">", "0", "1", "2", "3",
                              "4", "5", "6", "7", "8", "9", "a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F",
                              "g", "G", "h", "H", "i", "I", "j", "J", "k", "K", "l", "L", "m", "M", "n", "N", "o", "O",
@@ -89,7 +91,7 @@ class UserRegisterView(View):
         user = User.objects.create(
             email=user_email,
             password=request.session.get('user_pass'),
-            username=user_email.split("@")[0]
+            username=get_random_string(12, self.LINE_SYMBOL)
         )
         user.set_password(request.session.get('user_pass'))
         user.ip_address = self.get_client_ip(self.request)
@@ -380,3 +382,79 @@ class UserVerifyView(View):
             fail_silently=True,
         )
         return redirect('register')
+
+
+class TextCompilView(APIView):
+    @property
+    @lru_cache
+    def _simple(self):
+        return {
+            hand_writing.symbol: [hand_writing.performance, hand_writing.binary]
+            for hand_writing in HandWriting.objects.filter(user=self.request.user)
+        }
+
+    @property
+    @lru_cache
+    def _hexadecimal(self):
+        return {
+            hand_writing.performance: [hand_writing.symbol, hand_writing.binary]
+            for hand_writing in HandWriting.objects.filter(user=self.request.user)
+        }
+
+    @property
+    @lru_cache
+    def _binary(self):
+        return {
+            hand_writing.binary: [hand_writing.symbol, hand_writing.performance]
+            for hand_writing in HandWriting.objects.filter(user=self.request.user)
+        }
+
+    @property
+    @lru_cache
+    def _binary_model(self):
+        return {
+            item.binary: item.symbol
+            for item in BinaryDict.objects.all()
+        }
+
+    def get(self, request):
+        type_text = request.query_params.get('text_type')
+        text = request.query_params.get('text')
+        if not type_text or not text:
+            return Response()
+
+        if type_text == "simple":
+            return Response(
+                {
+                    "result": dict(
+                        simple=text,
+                        hexadecimal="".join([self._simple[symbol][0] for symbol in text]),
+                        binary="".join([self._simple[symbol][1] for symbol in text])
+                    )
+                }
+            )
+        elif type_text == "hexadecimal":
+            list_hexadecimal = [text[i:i + 30] for i in range(0, len(text), 30)]
+            return Response(
+                {
+                    "result": dict(
+                        simple="".join([self._hexadecimal[item][0] for item in list_hexadecimal]),
+                        hexadecimal=text,
+                        binary="".join([self._hexadecimal[item][1] for item in list_hexadecimal]),
+                    )
+                }
+            )
+        elif type_text == "binary":
+            list_binary = [text[i:i + 12] for i in range(0, len(text), 12)]  # [0101010010101, ...]
+            hexadecimals = "".join([self._binary_model[item] for item in list_binary])  # [12,pdfsfdp,324, ...]
+            list_hexadecimal = [hexadecimals[i:i + 30] for i in range(0, len(hexadecimals), 30)]
+            return Response(
+                {
+                    "result": dict(
+                        simple="".join([self._hexadecimal[item][0] for item in list_hexadecimal]),
+                        hexadecimal="".join(list_hexadecimal),
+                        binary=text,
+                    )
+                }
+            )
+        return Response({})
