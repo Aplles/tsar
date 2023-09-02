@@ -40,6 +40,15 @@ class VerdictShowView(View):
         })
 
 
+class CommandmentShowView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'commandment.html', context={
+            'commandment': Commandment.objects.get(id=kwargs['id']),
+            'index': True,
+        })
+
+
 def logout_user(request):
     """Log out"""
     logout(request)
@@ -227,7 +236,7 @@ class TextDeleteView(View):
             id=kwargs['id'],
             user=request.user
         ).delete()
-        return redirect('profile')
+        return redirect('work')
 
 
 class VoteListResultView(View):
@@ -324,7 +333,8 @@ class WorkShowView(View):
 
     def get(self, request, *args, **kwargs):
         return render(request, 'work.html', context={
-            'texts': Text.objects.filter(user=request.user).order_by('-created_at')
+            'texts': Text.objects.filter(user=request.user).order_by('-created_at'),
+            'users': User.objects.all(),
         })
 
 

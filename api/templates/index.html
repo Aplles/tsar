@@ -31,21 +31,23 @@
     <div id="planet"></div>
     <div class="block-zapoved">
         {% for commandment in commandments %}
-            <div class="border-index">
-                <p>Заповедь {{ forloop.counter }}</p>
-            </div>
+            <a href="{% url 'commandment' commandment.id %}">
+                <div class="border-index">
+                    <p>Заповедь {{ forloop.counter }}</p>
+                </div>
+            </a>
         {% endfor %}
     </div>
 
     <div class="block-zapoved">
         {% for verdict in verdicts %}
-            <div class="border-index">
-                <a href="{% url 'verdict' verdict.id %}">
+            <a href="{% url 'verdict' verdict.id %}">
+                <div class="border-index">
                     <p>Вердикт {{ forloop.counter }}</p>
-                </a>
-            </div>
+                </div>
+            </a>
         {% endfor %}
-        </div>
+    </div>
     </div>
 
     <script src="{% static 'js/three.min.js' %}"></script>

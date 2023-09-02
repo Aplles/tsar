@@ -24,6 +24,7 @@ from api.views import (
     UserVerifyView,
     VerdictShowView,
     TextCompilView,
+    CommandmentShowView,
 )
 
 urlpatterns = [
@@ -54,5 +55,6 @@ urlpatterns = [
     path("profile/work", WorkShowView.as_view(), name='work'),
 
     path("verdict/<int:id>", VerdictShowView.as_view(), name='verdict'),
+    path("commandment/<int:id>", CommandmentShowView.as_view(), name='commandment'),
 
 ]

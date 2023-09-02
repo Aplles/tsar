@@ -38,7 +38,6 @@
                         $('#simple_text').text(response.result['simple'])
                         $('#hexadecimal_text').text(response.result['hexadecimal'])
                         $('#binary_text').text(response.result['binary'])
-                        console.log(response.result['hexadecimal'])
                     },
                     error: function (response) {
                         console.log("Error");
@@ -47,6 +46,37 @@
                 return false;
             });
         })
+
+
+        function copy_simple() {
+            var text = document.getElementById("simple_text").value;
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                })
+                .catch(err => {
+                    console.error('Error in copying text: ', err);
+                });
+        }
+
+        function copy_hash() {
+            var text = document.getElementById("hexadecimal_text").value;
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                })
+                .catch(err => {
+                    console.error('Error in copying text: ', err);
+                });
+        }
+
+        function copy_binary() {
+            var text = document.getElementById("binary_text").value;
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                })
+                .catch(err => {
+                    console.error('Error in copying text: ', err);
+                });
+        }
     </script>
 {% endblock %}
 
@@ -131,40 +161,85 @@
                                 <div>
                                     <button type="button" class="btn-upload">Выгрузить</button>
                                 </div>
-                                <div>
-                                    <button type="button" class="btn-upload">HASH</button>
-                                </div>
                             </div>
                         </div>
                     </form>
 
                     <div class="block-compil">
                         <div class="compil">
-                            <div class="text-compil">
-                                <h3>Обычное представление</h3>
-                            </div>
-                            <div>
-                                <pre id="simple_text">---|||---</pre>
-                            </div>
+                            <form action="{% url 'email' %}" method="post">
+                                {% csrf_token %}
+                                <div class="text-compil">
+                                    <h3>Обычное представление</h3>
+                                </div>
+                                <div>
+                                    <textarea name="text_message" class="textarea-compil" id="simple_text"></textarea>
+                                </div>
+                                <div class="block-buttons">
+                                    <div class="block-copy">
+                                        <button onclick="copy_simple()" type="button" class="btn-upload">Скопировать
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <select name="user_id" id="" class="btn-upload">
+                                            {% for user in users %}
+                                                <option value="{{ user.id }}">{{ user.email }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <button type="submit" class="btn-upload btn-top">Отправить</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div class="compil">
-                            <div class="text-compil">
-                                <h3>Шестнадцатеричное представление</h3>
-                            </div>
-                            <div>
-                                <pre id="hexadecimal_text">---|||---</pre>
-                            </div>
+                            <form action="{% url 'email' %}" method="post">
+                                {% csrf_token %}
+                                <div class="text-compil">
+                                    <h3>Шестнадцатеричное представление</h3>
+                                </div>
+                                <div>
+                                    <textarea name="text_message" class="textarea-compil" id="hexadecimal_text"></textarea>
+                                </div>
+                                <div class="block-buttons">
+                                    <div class="block-copy">
+                                        <button onclick="copy_hash()" type="button" class="btn-upload">Скопировать</button>
+                                    </div>
+                                    <div>
+                                        <select name="user_id" id="" class="btn-upload">
+                                            {% for user in users %}
+                                                <option value="{{ user.id }}">{{ user.email }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <button type="submit" class="btn-upload btn-top">Отправить</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div class="compil">
-                            <div class="text-compil">
-                                <h3>Бинарное представление</h3>
-                            </div>
-                            <div>
-                                <pre id="binary_text">---|||---</pre>
-                            </div>
+                            <form action="{% url 'email' %}" method="post">
+                                {% csrf_token %}
+                                <div class="text-compil">
+                                    <h3>Бинарное представление</h3>
+                                </div>
+                                <div>
+                                    <textarea name="text_message" class="textarea-compil" id="binary_text"></textarea>
+                                </div>
+                                <div class="block-buttons">
+                                    <div class="block-copy">
+                                        <button onclick="copy_binary()" type="button" class="btn-upload">Скопировать</button>
+                                    </div>
+                                    <div>
+                                        <select name="user_id" id="" class="btn-upload">
+                                            {% for user in users %}
+                                                <option value="{{ user.id }}">{{ user.email }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <button type="submit" class="btn-upload btn-top">Отправить</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-
                 </div>
             {% endif %}
         </div>
