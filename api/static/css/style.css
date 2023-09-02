@@ -110,7 +110,7 @@ a {
 }
 
 .label-auth {
-
+    margin-top: 20px !important;
 }
 
 .login {
@@ -531,5 +531,14 @@ pre {
 
 .select-type {
     font-size: 20px;
+    margin-top: 10px;
+}
+
+.btn-login {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#textArea {
     margin-top: 10px;
 }
