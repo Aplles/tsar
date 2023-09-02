@@ -3,11 +3,12 @@ from functools import lru_cache
 
 import openpyxl
 from django.contrib.auth import logout, login
+from django.contrib.auth.views import LoginView
 from django.core.mail import send_mail
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.crypto import get_random_string
 from django.views import View
 from django.views.generic import TemplateView
@@ -15,6 +16,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from tsartvie import settings
+from .forms import LoginUserForm
 from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text, User, Message, Balance, TypeQuestion, \
     Code, Verdict, Commandment, Role
 
@@ -34,6 +36,15 @@ class VerdictShowView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'verdict.html', context={
             'verdict': Verdict.objects.get(id=kwargs['id']),
+            'index': True,
+        })
+
+
+class CommandmentShowView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'commandment.html', context={
+            'commandment': Commandment.objects.get(id=kwargs['id']),
             'index': True,
         })
 
@@ -115,37 +126,12 @@ class UserRegisterView(View):
         return redirect('profile')
 
 
-class UserLoginView(View):
+class UserLoginView(LoginView):
+    form_class = LoginUserForm
+    template_name = 'login.html'
 
-    @property
-    @lru_cache
-    def _user(self):
-        try:
-            return User.objects.get(
-                ip_address=self.get_client_ip(self.request)
-            )
-        except User.DoesNotExist:
-            return None
-
-    @staticmethod
-    def get_client_ip(request):
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0].strip()
-        else:
-            ip = request.META.get('REMOTE_ADDR')
-        return ip
-
-    def get(self, request):
-        return render(request, 'login.html')
-
-    def post(self, request):
-        if not self._user:
-            return render(request, 'login.html', context={
-                "error": "Такого пользователя нет"
-            })
-        login(request, self._user)
-        return redirect('work')
+    def get_success_url(self):
+        return reverse_lazy('studying')
 
 
 class VoteShowView(View):
@@ -250,7 +236,7 @@ class TextDeleteView(View):
             id=kwargs['id'],
             user=request.user
         ).delete()
-        return redirect('profile')
+        return redirect('work')
 
 
 class VoteListResultView(View):
@@ -347,7 +333,8 @@ class WorkShowView(View):
 
     def get(self, request, *args, **kwargs):
         return render(request, 'work.html', context={
-            'texts': Text.objects.filter(user=request.user).order_by('-created_at')
+            'texts': Text.objects.filter(user=request.user).order_by('-created_at'),
+            'users': User.objects.all(),
         })
 
 

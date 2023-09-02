@@ -110,7 +110,7 @@ a {
 }
 
 .label-auth {
-
+    margin-top: 20px !important;
 }
 
 .login {
@@ -289,6 +289,10 @@ pre {
     justify-content: space-between;
     padding: 0 270px;
     margin-bottom: 20px;
+}
+
+.block-zapoved a {
+    color: white !important;
 }
 
 .send-mail {
@@ -532,4 +536,35 @@ pre {
 .select-type {
     font-size: 20px;
     margin-top: 10px;
+}
+
+.btn-login {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#textArea {
+    margin-top: 10px;
+}
+
+.textarea-compil {
+    width: 98.6%;
+    height: 100px;
+}
+
+.block-buttons {
+    display: flex;
+    margin-top: 20px;
+}
+
+.block-buttons div {
+    margin-right: 10px;
+}
+
+.btn-top {
+}
+
+.center-text {
+    width: 1000px;
+    margin: 150px auto;
 }

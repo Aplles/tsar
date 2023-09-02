@@ -8,6 +8,11 @@
         <div class="block-form-login">
             <form action="{% url "login" %}" method="post">
                 {% csrf_token %}
+                {% for f in form %}
+                    <label for="{{ f.id_for_label }}" class="label-auth">{{ f.label }}</label>
+                    <br>{{ f }}
+                    <p>{{ f.errors }}</p>
+                {% endfor %}
                 <button type="submit" class="btn-login">Войти</button>
             </form>
 

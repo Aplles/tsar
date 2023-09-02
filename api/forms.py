@@ -23,8 +23,8 @@ class RegisterUserForm(UserCreationForm):
 
 
 class LoginUserForm(AuthenticationForm):
-    username = forms.CharField(label='Логин', max_length=255,
-                               widget=forms.TextInput(attrs={'id': 'textArea', 'class': 'login'}))
+    username = forms.CharField(label='Почта', max_length=255,
+                               widget=forms.TextInput(attrs={'id': 'textArea', 'class': 'login', 'type': 'email'}))
     password = forms.CharField(label='Пароль',
                                widget=forms.PasswordInput(
                                    attrs={"cols": 40, "rows": 6, 'id': 'textArea', 'class': 'password'}))
