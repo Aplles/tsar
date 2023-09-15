@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Вердикт{% endblock %}
+
+{% block content %}
+    <div class="center-text">
+        <div>
+            {{ book.text }}
+        </div>
+        <div class="row-book">
+            {% for member in book.members_book.all %}
+                <div class="column-book">
+                    <p class="text-member">{{ member.name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

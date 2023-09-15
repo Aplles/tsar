@@ -17,8 +17,23 @@ from rest_framework.views import APIView
 
 from tsartvie import settings
 from .forms import LoginUserForm
-from .models import BinaryDict, HandWriting, Question, Answer, UserAnswer, Text, User, Message, Balance, TypeQuestion, \
-    Code, Verdict, Commandment, Role
+from .models import (
+    BinaryDict,
+    HandWriting,
+    Question,
+    Answer,
+    UserAnswer,
+    Text,
+    User,
+    Message,
+    Balance,
+    TypeQuestion,
+    Code,
+    Verdict,
+    Commandment,
+    Role,
+    Book
+)
 
 
 class MainPageView(View):
@@ -34,9 +49,19 @@ class MainPageView(View):
 class VerdictShowView(View):
 
     def get(self, request, *args, **kwargs):
+        verdict = Verdict.objects.get(id=kwargs['id'])
         return render(request, 'verdict.html', context={
-            'verdict': Verdict.objects.get(id=kwargs['id']),
+            'verdict': verdict,
             'index': True,
+            'book': Book.objects.get(verdict=verdict)
+        })
+
+
+class BookShowView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'book.html', context={
+            'index': True,
+            'book': Book.objects.get(id=kwargs['id'])
         })
 
 
@@ -406,7 +431,7 @@ class TextCompilView(APIView):
 
     def get(self, request):
         type_text = request.query_params.get('text_type')
-        text = request.query_params.get('text')
+        text = request.query_params.get('text').replace('\n', '')
         if not type_text or not text:
             return Response()
 

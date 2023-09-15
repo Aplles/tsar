@@ -214,7 +214,7 @@ class Room(models.Model):
         return f'Комната пользователя {self.user}'
 
     class Meta:
-        db_table = 'rooms'  # Название таблицы в БД
+        db_table = 'rooms'
         verbose_name = 'Комната'
         verbose_name_plural = 'Комнаты'
 
@@ -223,7 +223,7 @@ class Commandment(models.Model):
     text = models.TextField(verbose_name="Текст")
 
     class Meta:
-        db_table = 'commandments'  # Название таблицы в БД
+        db_table = 'commandments'
         verbose_name = 'Заповедь'
         verbose_name_plural = 'Заповеди'
 
@@ -232,6 +232,26 @@ class Verdict(models.Model):
     text = models.TextField(verbose_name="Текст")
 
     class Meta:
-        db_table = 'verdicts'  # Название таблицы в БД
+        db_table = 'verdicts'
         verbose_name = 'Вердикт'
         verbose_name_plural = 'Вердикты'
+
+
+class Book(models.Model):
+    text = models.TextField(verbose_name="Текст")
+    verdict = models.ForeignKey(Verdict, on_delete=models.CASCADE, verbose_name='Вердикт')
+
+    class Meta:
+        db_table = 'books'
+        verbose_name = 'Книга'
+        verbose_name_plural = 'Книги'
+
+
+class BookMember(models.Model):
+    name = models.TextField(verbose_name="Имя")
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='members_book', verbose_name='Книга')
+
+    class Meta:
+        db_table = 'book_members'
+        verbose_name = 'Участник книги'
+        verbose_name_plural = 'Участники книги'

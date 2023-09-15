@@ -568,3 +568,31 @@ pre {
     width: 1000px;
     margin: 150px auto;
 }
+
+.link-book button{
+    position: relative;
+    left: 70%;
+    margin-top: 100px;
+}
+
+.column-book {
+    float: left;
+    width: 30.33%;
+    height: 30px;
+    border: 2px solid gray;
+    margin-right: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.row-book:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.text-member {
+    height: 30px;
+    line-height: 30px;
+    margin-left: 10px;
+}

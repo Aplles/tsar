@@ -10,4 +10,7 @@
             <p>{{ verdict.text }}</p>
         </div>
     </div>
+    <div class="link-book">
+        <a href="{% url 'book' book.id %}"><button class="btn-upload">Книга</button></a>
+    </div>
 {% endblock %}
