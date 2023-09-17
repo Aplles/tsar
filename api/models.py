@@ -227,6 +227,9 @@ class Commandment(models.Model):
         verbose_name = 'Заповедь'
         verbose_name_plural = 'Заповеди'
 
+    def __str__(self):
+        return f'{self.text}'
+
 
 class Verdict(models.Model):
     text = models.TextField(verbose_name="Текст")
@@ -235,6 +238,9 @@ class Verdict(models.Model):
         db_table = 'verdicts'
         verbose_name = 'Вердикт'
         verbose_name_plural = 'Вердикты'
+
+    def __str__(self):
+        return f'{self.text}'
 
 
 class Book(models.Model):
@@ -246,6 +252,9 @@ class Book(models.Model):
         verbose_name = 'Книга'
         verbose_name_plural = 'Книги'
 
+    def __str__(self):
+        return f'{self.text}'
+
 
 class BookMember(models.Model):
     name = models.TextField(verbose_name="Имя")
@@ -255,3 +264,6 @@ class BookMember(models.Model):
         db_table = 'book_members'
         verbose_name = 'Участник книги'
         verbose_name_plural = 'Участники книги'
+
+    def __str__(self):
+        return f'{self.name} - {self.book}'
