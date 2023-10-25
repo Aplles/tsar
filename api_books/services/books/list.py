@@ -1,10 +1,10 @@
-from service_objects.services import ServiceWithResult
+from service_objects.services import Service
 from django import forms
 from api.models import Verdict
 from rest_framework.exceptions import NotFound
 
 
-class BookListServices(ServiceWithResult):
+class BookListServices(Service):
     id = forms.IntegerField()
 
     def process(self):
