@@ -18,6 +18,9 @@
 
 {% block content %}
     <div class="main-content">
+        <div class="attention">
+                <a class="login" href="{% url 'matrix' %}"><p class="blink back">Остаться в мире</p></a>
+        </div>
         {% if not request.user.is_authenticated %}
             <div class="attention">
                 <a class="login" href="{% url 'login' %}"><p class="blink">Войти в матрицу</p></a>
