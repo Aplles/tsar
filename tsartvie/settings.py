@@ -135,9 +135,9 @@ EMAIL_HOST = 'smtp.ht-systems.ru'
 EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-DEFAULT_FROM_EMAIL = 'info@isav.su'
-EMAIL_HOST_USER = 'info@isav.su'
-EMAIL_HOST_PASSWORD = 'cgj-Hy7-qv6-USV'
+DEFAULT_FROM_EMAIL = 'isav@tsarstvie.ru'
+EMAIL_HOST_USER = 'isav@tsarstvie.ru'
+EMAIL_HOST_PASSWORD = 'EPireW2KUFUSiV'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_ALL_ORIGINS = True
