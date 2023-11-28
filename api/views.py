@@ -406,7 +406,6 @@ class UserVerifyView(View):
             message=f'Для верификации почты введите данный код {code}',
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[email],
-            fail_silently=True,
         )
         return redirect('register')
 
