@@ -17,7 +17,7 @@ from rest_framework.views import APIView
 
 from tsartvie import settings
 from .forms import LoginUserForm
-from .models import (
+from api.models import (
     BinaryDict,
     HandWriting,
     Question,
@@ -136,19 +136,34 @@ class UserRegisterView(View):
         del request.session['user_email']
         del request.session['user_pass']
         login(self.request, user)
+        self.__create_hand_writings(user)
+        Balance.objects.create(user=user)
+        return redirect('profile')
+
+    def __create_hand_writings(self, user):
+        list_hand_writing = []
         for symbol in self.LIST_REQUIRED_SYMBOLS:
             binary = ""
             performance = self.random_hex()
             for symbol_performance in performance:
-                binary += BinaryDict.objects.get(symbol=symbol_performance).binary
-            HandWriting.objects.create(
-                symbol=symbol,
-                performance=performance,
-                binary=binary,
-                user=user
+                binary += self.__info_binary[symbol_performance]
+            list_hand_writing.append(
+                HandWriting(
+                    symbol=symbol,
+                    performance=performance,
+                    binary=binary,
+                    user=user
+                )
             )
-        Balance.objects.create(user=user)
-        return redirect('profile')
+        HandWriting.objects.bulk_create(list_hand_writing)
+
+    @property
+    @lru_cache
+    def __info_binary(self):
+        return {
+            binary_dict.symbol: binary_dict.binary
+            for binary_dict in BinaryDict.objects.all()
+        }
 
 
 class UserLoginView(LoginView):

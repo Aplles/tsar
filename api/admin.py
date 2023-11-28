@@ -36,7 +36,7 @@ class RoomAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    pass
+    prepopulated_fields = {"slug": ("text",)}
 
 
 @admin.register(BookMember)
