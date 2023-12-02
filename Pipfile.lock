@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "01f7191862ff6ded1f84b34b75f1403422e59ecce57700987187d3f9c922aebf"
+            "sha256": "e04622c279576d8b2e10b0f210c6bb1077fe0eb86455c44c9cadc6369f3a512b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -151,11 +151,12 @@
         },
         "django": {
             "hashes": [
-                "sha256:8e0f1c2c2786b5c0e39fe1afce24c926040fad47c8ea8ad30aaf1188df29fc41",
-                "sha256:e1d37c51ad26186de355cbcec16613ebdabfa9689bbade9c538835205a8abbe9"
+                "sha256:59304646ebc6a77b9b6a59adc67d51ecb03c5e3d63ed1f14c909cdfda84e8010",
+                "sha256:d5a8a14da819a8b9237ee4d8c78dfe056ff6e8a7511987be627192225113ee75"
             ],
+            "index": "pypi",
             "markers": "python_version >= '3.8'",
-            "version": "==4.2.7"
+            "version": "==4.0"
         },
         "django-cors-headers": {
             "hashes": [
@@ -163,6 +164,7 @@
                 "sha256:0bf65ef45e606aff1994d35503e6b677c0b26cafff6506f8fd7187f3be840207"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.8'",
             "version": "==4.3.1"
         },
         "django-environ": {
@@ -171,6 +173,7 @@
                 "sha256:f32a87aa0899894c27d4e1776fa6b477e8164ed7f6b3e410a62a6d72caaf64be"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.6' and python_version < '4'",
             "version": "==0.11.2"
         },
         "djangorestframework": {
@@ -179,6 +182,7 @@
                 "sha256:24c4bf58ed7e85d1fe4ba250ab2da926d263cd57d64b03e8dcef0ac683f8b1aa"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.6'",
             "version": "==3.13.1"
         },
         "drf-yasg": {
@@ -187,6 +191,7 @@
                 "sha256:d50f197c7f02545d0b736df88c6d5cf874f8fea2507ad85ad7de6ae5bf2d9e5a"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.6'",
             "version": "==1.20.0"
         },
         "et-xmlfile": {
@@ -308,6 +313,7 @@
                 "sha256:f91456ead12ab3c6c2e9491cf33ba6d08357d802192379bb482f1033ade496f5"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.6'",
             "version": "==3.1.2"
         },
         "packaging": {
@@ -376,6 +382,7 @@
                 "sha256:fe1e26e1ffc38be097f0ba1d0d07fcade2bcfd1d023cda5b29935ae8052bd793"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.8'",
             "version": "==10.1.0"
         },
         "pipenv": {
@@ -384,6 +391,7 @@
                 "sha256:f587ffff47e8aa76f17803d571f64cf5a24b2bdfb9334435e6528b22ad5e304f"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.8'",
             "version": "==2023.11.15"
         },
         "platformdirs": {
@@ -470,6 +478,7 @@
                 "sha256:f9b5571d33660d5009a8b3c25dc1db560206e2d2f89d3df1cb32d72c0d117d52"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.7'",
             "version": "==2.9.9"
         },
         "pytz": {
@@ -485,6 +494,7 @@
                 "sha256:942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.7'",
             "version": "==2.31.0"
         },
         "ruamel.yaml": {
