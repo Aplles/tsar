@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'api',
     'api_books',
     "corsheaders",
+    "rest_framework",
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -151,3 +153,8 @@ CORS_ALLOW_HEADERS = ['*']
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 CSRF_TRUSTED_ORIGINS = ['https://000000000000.ru']
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication"
+    ],
+}
