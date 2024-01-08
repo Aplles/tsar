@@ -35,8 +35,8 @@ urlpatterns = [
     path('votes/<int:id>/', VoteShowView.as_view(), name="questions"),
     path('votes/result/', VoteListResultView.as_view(), name="vote_result"),
     path('user/login/', UserLoginView.as_view(), name="login"),
-    path('user/register/', UserRegisterView.as_view(), name="register"),
-    path('user/register/verify/', UserVerifyView.as_view(), name="verify"),
+    # path('user/register/', UserRegisterView.as_view(), name="register"),
+    # path('user/register/verify/', UserVerifyView.as_view(), name="verify"),
     path('user/logout/', logout_user, name="logout"),
 
     path("mail/", EmailShowView.as_view(), name='email'),
